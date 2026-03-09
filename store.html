@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La Taberna - Pedidos al Toque</title>
+    <link rel="icon" type="image/webp" href="assets/icons/icon.webp">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="src/public/main.css"> 
+
+    <link rel="stylesheet" href="src/public/modules/layout/header/header.css">
+    <link rel="stylesheet" href="src/public/modules/layout/header/header.responsive.css">
+
+    <link rel="stylesheet" href="src/public/modules/store/categories-bar/categories-bar.css">
+    <link rel="stylesheet" href="src/public/modules/store/desktop-sidebar/desktop-sidebar.css">
+
+    <link rel="stylesheet" href="src/public/modules/store/product-grid/product-grid.css">
+    <link rel="stylesheet" href="src/public/modules/store/product-grid/product-grid.responsive.css">
+
+    <link rel="stylesheet" href="src/public/modules/store/cart-modal/cart-modal.css">
+    <link rel="stylesheet" href="src/public/modules/store/cart-modal/cart-modal.responsive.css">
+    
+    <link rel="stylesheet" href="src/public/modules/store/toast-notification/toast.css"> 
+    <link rel="stylesheet" href="src/public/modules/whatsapp-button/whatsapp-button.css">
+</head>
+<body>
+    <header id="main-header">
+    </header>
+
+    <main id="app-content" class="store-layout-grid">
+        
+        <section id="categories-bar-container"></section>
+
+        <aside id="desktop-sidebar-container"></aside>
+
+        <section id="product-grid-container"></section>
+        
+        <div id="cart-modal-container"></div>
+    </main>
+    
+    <footer id="main-footer">
+        <p>© 2025 La Taberna - Delivery Ica</p>
+        <div class="footer-extras">
+            <a href="#" class="complaint-book" title="LIBRO DE RECLAMACIONES">
+                <img src="assets/icons/libro-reclamaciones.png" alt="Icono Libro">
+                <span>LIBRO DE RECLAMACIONES</span>
+            </a>
+            <a href="src/admin/auth/auth.html" class="admin-link">Admin</a>
+        </div>
+    </footer>
+
+    <div id="whatsapp-button-container"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+
+    <script type="module" src="src/public/main.js"></script> 
+</body>
+</html>

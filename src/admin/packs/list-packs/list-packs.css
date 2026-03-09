@@ -1,0 +1,322 @@
+/* src/admin/packs/list-packs/list-packs.css */
+
+body {
+    background-color: #ffffff;
+    color: #343a40;
+    font-family: var(--font-family, sans-serif);
+    padding-bottom: 90px;
+}
+
+.mobile-main-content {
+    padding: 16px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.page-header {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.page-title {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: #343a40;
+    margin: 0;
+    letter-spacing: -0.5px;
+}
+
+.filter-tabs {
+    display: flex;
+    background-color: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 8px; 
+    padding: 4px;
+}
+
+.tab-btn {
+    flex: 1;
+    background: transparent;
+    border: none;
+    color: #6c757d;
+    padding: 8px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: inherit;
+}
+
+.tab-btn.active {
+    background-color: #fffbe8;
+    color: #FFC107;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.search-and-action-container {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 4px; 
+}
+
+.search-container { 
+    margin-bottom: 0; 
+    flex-grow: 1;
+}
+
+.search-input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    background-color: #ffffff;
+    border: 1px solid #ced4da;
+    border-radius: 8px;
+    padding: 0 12px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.search-input-wrapper svg {
+    flex-shrink: 0;
+}
+
+.search-input {
+    width: 100%;
+    background: transparent;
+    border: none;
+    color: #343a40;
+    padding: 14px 10px;
+    font-size: 0.95rem;
+    outline: none;
+    font-family: inherit;
+}
+
+.add-product-btn {
+    background-color: #FFC107;
+    color: #343a40;
+    width: 48px;
+    height: 48px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0; 
+    transition: background-color 0.2s;
+}
+
+.add-product-btn:hover {
+    background-color: #e0a800;
+}
+
+.add-product-btn svg {
+    width: 24px;
+    height: 24px;
+    stroke: currentColor; 
+    stroke-width: 3; 
+}
+
+.products-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.product-card {
+    background-color: #ffffff;
+    border: 1px solid #e9ecef;
+    border-radius: 12px;
+    padding: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.2s;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.product-card:active {
+    background-color: #f8f9fa;
+    border-color: #FFC107;
+}
+
+.product-card-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex: 1;
+    min-width: 0; 
+}
+
+.product-icon-box {
+    width: 42px;
+    height: 42px;
+    background: rgba(255, 193, 7, 0.1);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #FFC107;
+    flex-shrink: 0;
+    overflow: hidden; 
+}
+
+.product-thumb {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.product-details {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    overflow: hidden;
+}
+
+.product-name {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #343a40;
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.product-meta {
+    font-size: 0.75rem;
+    color: #888;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+/* --- ESTILOS ICONO DESCUENTO (Iguales a Products) --- */
+.discount-icon-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 6px;
+}
+
+.discount-icon-solid {
+    color: #dc3545;
+    fill: #dc3545;
+}
+
+.discount-icon-outline {
+    color: #f1aeb5; 
+    stroke-width: 2.5;
+}
+
+.product-card-right {
+    text-align: right;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 2px;
+    margin-left: 10px;
+    flex-shrink: 0;
+}
+
+.product-price {
+    font-weight: 800;
+    font-size: 1rem;
+    color: #343a40;
+}
+
+.stock-badge {
+    font-size: 0.7rem;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.stock-high { color: #155724; background: #d4edda; }
+.stock-medium { color: #856404; background: #fff3cd; }
+.stock-low { color: #721c24; background: #f8d7da; }
+.stock-none { color: #6c757d; background: #e9ecef; }
+
+.spin { animation: spin 1s linear infinite; }
+@keyframes spin { 100% { transform: rotate(360deg); } }
+.u-flex-center { display: flex; justify-content: center; align-items: center; width: 100%; }
+
+.products-grid {
+    display: none;
+    flex-direction: column;
+    gap: 12px;
+}
+.products-grid.active-view {
+    display: flex;
+}
+
+.pagination-area {
+    margin-top: 25px;
+    margin-bottom: 20px;
+}
+
+.pagination-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+}
+
+.pagination-btn {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #dee2e6;
+    background-color: #ffffff;
+    color: #343a40;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    font-weight: 600;
+    font-family: inherit;
+    transition: all 0.2s ease;
+    padding: 0;
+}
+
+.pagination-btn:hover:not(:disabled) {
+    background-color: #e9ecef;
+    border-color: #ced4da;
+}
+
+.pagination-btn.active {
+    background-color: #495057;
+    color: #ffffff;
+    border-color: #495057;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.pagination-btn:disabled {
+    color: #ced4da;
+    cursor: default;
+    background-color: #f8f9fa;
+    border-color: #e9ecef;
+}
+
+.pagination-dots {
+    font-size: 1.2rem;
+    color: #6c757d;
+    padding: 0 4px;
+    letter-spacing: 1px;
+}
+
+.pagination-info {
+    text-align: center;
+    margin-top: 12px;
+    font-size: 0.85rem;
+    color: #6c757d;
+}
