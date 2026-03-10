@@ -2,32 +2,31 @@
 
 import { initHeader } from './modules/layout/header/header.js';
 import { initProductGrid } from './modules/store/product-grid/product-grid.js';
-import { initCartModal } from './modules/store/cart-modal/cart-modal.js'; 
-import { initToastNotification } from './modules/store/toast-notification/toast.js'; 
-import { initWhatsappButton } from './modules/whatsapp-button/whatsapp-button.js'; 
-import { initCategoriesBar } from './modules/store/categories-bar/categories-bar.js'; 
-import { initDesktopSidebar } from './modules/store/desktop-sidebar/desktop-sidebar.js'; // IMPORT
+// import { initCartModal } from './modules/store/cart-modal/cart-modal.js';
+import { initToastNotification } from './modules/store/toast-notification/toast.js';
+import { initCategoriesBar } from './modules/store/categories-bar/categories-bar.js';
+
+import { initAgeGate } from './modules/age-gate/age-gate.js';
+import { initBottomNav } from './modules/layout/bottom-nav/bottom-nav.js';
 
 document.addEventListener('DOMContentLoaded', () => {
-    
-    // 1. Inicializa el Header
-    initHeader('main-header'); 
+    initBottomNav();
 
-    // 2. Inicializa el Modal del Carrito
-    initCartModal();
-    
+    // 0. Verificación de Edad (Age Gate)
+    initAgeGate();
+    initHeader('main-header');
+
+    // Modal de carrito eliminado, ahora es standalone page.
+
     // 3. Inicializa el Toast
-    initToastNotification(); 
+    initToastNotification();
 
     // 4. Inicializa la Barra de Categorías (Visible siempre, estilo Rappi)
     initCategoriesBar();
 
-    // 5. Inicializa el Sidebar de Filtros (Solo PC)
-    initDesktopSidebar();
+
 
     // 6. Inicializa la Rejilla de Productos
-    initProductGrid('product-grid-container'); 
-    
-    // 7. Botón flotante de WhatsApp
-    initWhatsappButton('whatsapp-button-container'); 
+    initProductGrid('product-grid-container');
+
 });

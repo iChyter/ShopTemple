@@ -5,14 +5,14 @@
     --search-bg: #f3f4f6;
     --icon-color: #374151;
     --sidebar-width: 280px;
-    --primary-highlight: #FFC107; 
+    --primary-highlight: #16a34a;
 }
 
 #main-header {
     background-color: var(--header-bg);
     color: var(--icon-color);
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-    position: sticky; 
+    position: sticky;
     top: 0;
     z-index: 1000;
     padding: 0;
@@ -22,25 +22,32 @@
 .header-top-row {
     display: flex;
     align-items: center;
-    justify-content: space-between; /* Clave para distribuir elementos */
-    padding: 10px 15px; 
-    height: 70px; /* Un poco más alto para verse bien en PC */
+    justify-content: space-between;
+    /* Clave para distribuir elementos */
+    padding: 10px 15px;
+    height: 70px;
+    /* Un poco más alto para verse bien en PC */
     gap: 15px;
 }
 
 /* Marca (Logo Imagen + Texto) */
 .header-brand {
-    display: none; /* Oculto por defecto en móvil */
-    align-items: center; /* Centrar verticalmente imagen y texto */
-    gap: 12px; /* Espacio entre logo y texto */
+    display: none;
+    /* Oculto por defecto en móvil */
+    align-items: center;
+    /* Centrar verticalmente imagen y texto */
+    gap: 12px;
+    /* Espacio entre logo y texto */
     text-decoration: none;
     color: #000;
 }
 
 /* Estilos para la imagen del logo */
 .header-brand-logo {
-    height: 45px; /* Altura ajustada para el header de 70px */
-    width: auto;  /* Mantener proporción */
+    height: 45px;
+    /* Altura ajustada para el header de 70px */
+    width: auto;
+    /* Mantener proporción */
     object-fit: contain;
 }
 
@@ -51,7 +58,8 @@
     text-transform: uppercase;
     letter-spacing: -0.5px;
     white-space: nowrap;
-    line-height: 1; /* Asegurar alineación */
+    line-height: 1;
+    /* Asegurar alineación */
 }
 
 /* 1. Botón Hamburguesa */
@@ -64,14 +72,14 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    display: block !important; 
+    display: none !important;
 }
 
 /* 2. Barra de Búsqueda */
 .header-search-container {
     flex-grow: 1;
     max-width: 600px;
-    position: relative; 
+    position: relative;
 }
 
 .search-input-wrapper {
@@ -97,7 +105,7 @@
 .search-input-wrapper input.has-results {
     border-radius: 12px 12px 0 0;
     background-color: #fff;
-    box-shadow: 0 -2px 5px rgba(0,0,0,0.05);
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.05);
 }
 
 .search-icon {
@@ -114,13 +122,13 @@
     width: 100%;
     background-color: #fff;
     border-radius: 0 0 12px 12px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     list-style: none;
     padding: 0;
     margin: 0;
     z-index: 1001;
     display: none;
-    max-height: 400px; 
+    max-height: 400px;
     overflow-y: auto;
     border-top: 1px solid #f0f0f0;
 }
@@ -131,8 +139,8 @@
 
 .search-section-title {
     padding: 8px 15px;
-    background-color: #f9fafb; 
-    color: #6b7280; 
+    background-color: #f9fafb;
+    color: #6b7280;
     font-size: 0.75rem;
     font-weight: 800;
     text-transform: uppercase;
@@ -152,13 +160,18 @@
     transition: background 0.1s;
 }
 
-.search-item:last-child { border-bottom: none; }
-.search-item:hover { background-color: #fffbeb; }
+.search-item:last-child {
+    border-bottom: none;
+}
+
+.search-item:hover {
+    background-color: #fffbeb;
+}
 
 .search-cat-icon {
     width: 32px;
     height: 32px;
-    background-color: #eef2ff; 
+    background-color: #eef2ff;
     color: #4f46e5;
     border-radius: 8px;
     display: flex;
@@ -190,7 +203,7 @@
 
 .search-item-price {
     font-size: 0.8rem;
-    color: #059669; 
+    color: #059669;
     font-weight: 700;
 }
 
@@ -212,7 +225,7 @@
     position: absolute;
     top: -2px;
     right: -2px;
-    background-color: #dc3545;
+    background-color: var(--primary-color);
     color: #fff;
     border-radius: 50%;
     width: 18px;
@@ -233,12 +246,14 @@
     background-color: #fff;
     z-index: 2000;
     transition: left 0.3s ease-in-out;
-    box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
 }
 
-.header-nav-sidebar.is-open { left: 0; }
+.header-nav-sidebar.is-open {
+    left: 0;
+}
 
 .sidebar-header {
     padding: 20px;
@@ -249,16 +264,65 @@
     background-color: #fff;
 }
 
-.sidebar-header h3 { margin: 0; font-size: 1.2rem; color: #111; font-weight: 800; text-transform: uppercase; }
-.close-sidebar-btn { background: none; border: none; font-size: 1.8rem; color: #6b7280; cursor: pointer; line-height: 1; }
+.sidebar-header h3 {
+    margin: 0;
+    font-size: 1.2rem;
+    color: #111;
+    font-weight: 800;
+    text-transform: uppercase;
+}
 
-.sidebar-list { list-style: none; padding: 0; margin: 0; overflow-y: auto; flex-grow: 1; }
-.sidebar-list li { border-bottom: 1px solid #f9fafb; }
-.sidebar-list a { display: block; padding: 15px 20px; color: #374151; text-decoration: none; font-weight: 600; font-size: 1rem; transition: background 0.2s, color 0.2s; text-transform: capitalize; }
-.sidebar-list a:hover { background-color: #fffbef; color: #d97706; }
+.close-sidebar-btn {
+    background: none;
+    border: none;
+    font-size: 1.8rem;
+    color: #6b7280;
+    cursor: pointer;
+    line-height: 1;
+}
+
+.sidebar-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    overflow-y: auto;
+    flex-grow: 1;
+}
+
+.sidebar-list li {
+    border-bottom: 1px solid #f9fafb;
+}
+
+.sidebar-list a {
+    display: block;
+    padding: 15px 20px;
+    color: #374151;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: background 0.2s, color 0.2s;
+    text-transform: capitalize;
+}
+
+.sidebar-list a:hover {
+    background-color: #fffbef;
+    color: #d97706;
+}
 
 .sidebar-overlay {
-    position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5);
-    z-index: 1500; opacity: 0; visibility: hidden; transition: opacity 0.3s;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1500;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s;
 }
-.sidebar-overlay.is-visible { opacity: 1; visibility: visible; }
+
+.sidebar-overlay.is-visible {
+    opacity: 1;
+    visibility: visible;
+}

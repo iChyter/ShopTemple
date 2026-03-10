@@ -1,6 +1,6 @@
 // src/admin/auth/auth.js
 
-import { supabase } from '../../config/supabaseClient.js'; 
+import { supabase } from '../../config/supabaseClient.js';
 
 /**
  * Maneja el envío del formulario de login.
@@ -8,7 +8,7 @@ import { supabase } from '../../config/supabaseClient.js';
  */
 export async function handleLoginSubmit(e, onAuthSuccess) {
     e.preventDefault();
-    
+
     const email = document.getElementById('admin-email').value;
     const password = document.getElementById('admin-password').value;
     const errorMsgElement = document.getElementById('auth-error-msg');
@@ -33,7 +33,7 @@ export async function handleLoginSubmit(e, onAuthSuccess) {
         } else {
             // Redirigir a la lista de productos
             // Usamos ruta absoluta desde la raíz para evitar errores
-            window.location.href = '/src/admin/products/list-products/list-products.html'; 
+            window.location.href = '/src/admin/products/list-products/list-products.html';
         }
 
     } catch (error) {
@@ -43,7 +43,7 @@ export async function handleLoginSubmit(e, onAuthSuccess) {
         }
         if (loginBtn) {
             loginBtn.disabled = false;
-            loginBtn.textContent = "ACCEDER A LA TABERNA";
+            loginBtn.textContent = "Ingresar";
         }
     }
 }
@@ -62,5 +62,5 @@ export async function getSession() {
 export async function logout() {
     await supabase.auth.signOut();
     // Redirigir a auth.html usando ruta absoluta
-    window.location.href = '/src/admin/auth/auth.html'; 
+    window.location.href = '/src/admin/auth/auth.html';
 }

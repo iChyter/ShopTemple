@@ -1,110 +1,200 @@
 /* src/admin/auth/auth.css */
 
 /* Contenedor Principal (Fondo Blanco total) */
+body {
+    background-color: #ffffff;
+    margin: 0;
+}
+
 #auth-wrapper {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
     min-height: 100vh;
-    background-color: #ffffff; /* Fondo blanco puro */
+    background-color: #ffffff;
     font-family: var(--font-family, sans-serif);
-    padding: 20px;
 }
 
-/* Tarjeta de Login (Sin estilo de tarjeta, solo contenedor de layout) */
-.auth-card {
-    background-color: transparent; /* Sin fondo */
-    padding: 20px 0; /* Padding reducido */
-    border-radius: 0; /* Sin bordes redondeados */
-    box-shadow: none; /* Sin sombra (efecto flotante eliminado) */
+.auth-header {
+    padding: 20px;
     width: 100%;
-    max-width: 400px;
+    box-sizing: border-box;
+}
+
+.back-btn {
+    width: 48px;
+    height: 48px;
+    background-color: #f8f9fa;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #1a1a1a;
+    text-decoration: none;
+    transition: background-color 0.2s;
+}
+
+.back-btn:active {
+    background-color: #e9ecef;
+}
+
+.back-btn svg {
+    width: 22px;
+    height: 22px;
+}
+
+/* Tarjeta de Login */
+.auth-card {
+    background-color: transparent;
+    padding: 80px 20px;
+    width: 100%;
+    margin: 0 auto;
+    max-width: 440px;
     text-align: center;
     display: flex;
     flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
 }
 
-/* Icono Superior */
+/* Icono Superior (Estrella 4 puntas) */
 .auth-icon {
     margin-bottom: 20px;
-    color: #FFC107; /* Dorado */
-}
-.auth-icon svg {
-    width: 50px; /* Un poco más grande para destacar en el fondo limpio */
-    height: 50px;
 }
 
-/* Título */
-.auth-card h3 {
-    color: #212529;
-    margin-bottom: 40px;
-    font-size: 2rem;
-    font-weight: 800;
+.auth-icon svg {
+    width: 60px;
+    height: 60px;
+}
+
+/* Títulos */
+.auth-title {
+    color: #1a1a1a;
+    margin: 0 0 8px 0;
+    font-size: 1.8rem;
+    font-weight: 900;
     letter-spacing: -0.5px;
 }
 
-/* Estilos del Formulario */
-.auth-form .form-group {
-    margin-bottom: 25px; /* Más espacio entre inputs */
-    text-align: left;
-}
-
-.auth-form label {
-    display: block;
-    font-weight: 700;
-    margin-bottom: 10px;
-    color: #343a40;
+.auth-subtitle {
+    color: #888;
+    margin: 0 0 35px 0;
     font-size: 0.95rem;
-    margin-left: 5px;
+    font-weight: 500;
 }
 
-.auth-form input[type="email"],
-.auth-form input[type="password"] {
+/* Estilos del Formulario */
+.auth-form {
     width: 100%;
-    padding: 16px 20px; /* Inputs más grandes y cómodos */
-    background-color: #f8f9fa; /* Gris muy suave para diferenciar del fondo blanco */
-    border: 2px solid #e9ecef; /* Borde sutil pero visible */
-    border-radius: 12px;
-    font-size: 1.05rem;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.input-wrapper {
+    position: relative;
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.input-icon {
+    position: absolute;
+    left: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #a0a0a0;
+}
+
+.input-icon svg {
+    width: 20px;
+    height: 20px;
+}
+
+.auth-form input {
+    width: 100%;
+    padding: 18px 48px;
+    /* Espacio para los iconos laterales */
+    background-color: #f8f9fa;
+    /* Gris muy clarito */
+    border: 1px solid #e9ecef;
+    border-radius: 10px;
+    font-size: 1rem;
     color: #495057;
     outline: none;
     transition: all 0.2s;
     box-sizing: border-box;
+    font-family: inherit;
+}
+
+.auth-form input::placeholder {
+    color: #999;
 }
 
 .auth-form input:focus {
     background-color: #ffffff;
-    border-color: #FFC107; /* Dorado al enfocar */
-    box-shadow: 0 0 0 4px rgba(255, 193, 7, 0.15);
+    border-color: #16a34a;
+}
+
+.auth-form input:focus+.input-icon,
+.input-wrapper:focus-within .input-icon {
+    color: #16a34a;
+}
+
+.input-action {
+    position: absolute;
+    right: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #a0a0a0;
+    cursor: pointer;
+}
+
+.input-action svg {
+    width: 20px;
+    height: 20px;
+    transition: color 0.2s;
+}
+
+.input-action:hover svg {
+    color: #1a1a1a;
 }
 
 /* Botón Principal (Login) */
 #login-btn {
     width: 100%;
     padding: 16px;
-    background-color: #FFC107; /* Dorado */
-    color: #212529; /* Texto oscuro */
+    background-color: #16a34a;
+    /* Naranja/Dorado oscuro */
+    color: #ffffff;
+    /* Texto blanco */
     font-size: 1.1rem;
     font-weight: 800;
     border: none;
-    border-radius: 12px;
+    border-radius: 10px;
     cursor: pointer;
-    transition: transform 0.1s, background-color 0.2s;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
+    transition: transform 0.1s, box-shadow 0.2s, background-color 0.2s;
     margin-top: 10px;
+    box-shadow: 0 4px 14px rgba(216, 131, 27, 0.25);
+    /* Sombra naranja */
 }
 
 #login-btn:hover {
-    background-color: #e0a800;
+    background-color: #e0912d;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(216, 131, 27, 0.3);
 }
+
 #login-btn:active {
-    transform: scale(0.98);
+    transform: translateY(0);
+    box-shadow: 0 2px 8px rgba(216, 131, 27, 0.2);
 }
+
 #login-btn:disabled {
-    background-color: #ffeeb0;
+    background-color: #e8bd89;
     cursor: not-allowed;
+    box-shadow: none;
 }
 
 /* Mensaje de Error */
@@ -113,7 +203,7 @@
     background-color: #fff5f5;
     border: 1px solid #ffc9c9;
     padding: 12px;
-    border-radius: 12px;
+    border-radius: 10px;
     margin-top: 20px;
     font-size: 0.95em;
     font-weight: 600;
@@ -122,9 +212,11 @@
 /* Responsive */
 @media (max-width: 480px) {
     .auth-card {
-        padding: 0; /* Aprovechar todo el ancho en móviles */
+        padding: 40px 15px;
+        /* Aprovechar todo el ancho en móviles */
     }
-    .auth-card h3 {
-        font-size: 1.8rem;
+
+    .auth-title {
+        font-size: 1.6rem;
     }
 }

@@ -5,7 +5,8 @@ body {
     background-color: #ffffff;
     color: #343a40;
     font-family: var(--font-family, sans-serif);
-    padding-bottom: 90px; /* Espacio para el nav inferior */
+    padding-bottom: 90px;
+    /* Espacio para el nav inferior */
     display: flex;
     flex-direction: column;
     min-height: 100vh;
@@ -15,7 +16,8 @@ body {
 .page-header-bar {
     display: flex;
     align-items: center;
-    justify-content: center; /* Centrado */
+    justify-content: center;
+    /* Centrado */
     padding: 15px 20px;
     background-color: #ffffff;
     border-bottom: 1px solid #e9ecef;
@@ -34,7 +36,8 @@ body {
 /* --- CONTENIDO PRINCIPAL --- */
 .mobile-main-content {
     padding: 20px;
-    max-width: 600px; /* Un poco más estrecho para perfil */
+    max-width: 600px;
+    /* Un poco más estrecho para perfil */
     margin: 0 auto;
     width: 100%;
     display: flex;
@@ -53,20 +56,22 @@ body {
 .avatar-circle {
     width: 100px;
     height: 100px;
-    background-color: #fffbef; /* Fondo crema */
-    border: 3px solid #FFC107; /* Borde dorado */
+    background-color: #f0fdf4;
+    /* Verde muy suave */
+    border: 3px solid #16a34a;
+    /* Verde taberna */
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     margin-bottom: 15px;
-    box-shadow: 0 4px 15px rgba(255, 193, 7, 0.2);
+    box-shadow: 0 4px 20px rgba(22, 163, 74, 0.15);
 }
 
 .avatar-circle svg {
     width: 50px;
     height: 50px;
-    color: #FFC107;
+    color: #16a34a;
 }
 
 .user-name-display {
@@ -77,15 +82,17 @@ body {
 }
 
 .user-role-badge {
-    background-color: #343a40; /* Negro */
-    color: #FFC107; /* Texto Dorado */
-    font-size: 0.75rem;
-    padding: 4px 12px;
+    background-color: #064e3b;
+    /* Verde oscuro petróleo */
+    color: #34d399;
+    /* Verde esmeralda claro */
+    font-size: 0.7rem;
+    padding: 4px 14px;
     border-radius: 20px;
-    margin-top: 5px;
+    margin-top: 8px;
     text-transform: uppercase;
-    letter-spacing: 1px;
-    font-weight: 600;
+    letter-spacing: 1.5px;
+    font-weight: 800;
 }
 
 /* --- TARJETAS DE INFORMACIÓN (Estilo Input Card Readonly) --- */
@@ -106,13 +113,13 @@ body {
     display: flex;
     align-items: center;
     gap: 15px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
     transition: transform 0.2s;
 }
 
 .info-card:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
 .icon-wrapper {
@@ -125,10 +132,31 @@ body {
     flex-shrink: 0;
 }
 
-/* Colores de Iconos */
-.icon-gold { background: rgba(255, 193, 7, 0.15); color: #e0a800; }
-.icon-blue { background: rgba(13, 110, 253, 0.1); color: #0d6efd; }
-.icon-green { background: rgba(25, 135, 84, 0.1); color: #198754; }
+/* Colores de Iconos Refinados */
+/* Verde para email/cuenta */
+.icon-account {
+    background: #f0fdf4;
+    color: #16a34a;
+}
+
+.icon-blue {
+    background: #eff6ff;
+    color: #2563eb;
+}
+
+/* Azul para categorias */
+.icon-green {
+    background: #f0fdf4;
+    color: #16a34a;
+}
+
+/* Verde para estado/seguridad */
+.icon-purple {
+    background: #f5f3ff;
+    color: #7c3aed;
+}
+
+/* Violeta para packs/extras */
 
 .info-content {
     display: flex;
@@ -158,15 +186,19 @@ body {
     align-items: center;
     justify-content: center;
     gap: 10px;
-    padding: 15px;
-    border: 1px solid #ffebeb;
-    background-color: #fff5f5; /* Fondo rojo muy claro */
-    color: #dc3545; /* Rojo */
-    font-weight: 700;
-    font-size: 1rem;
-    border-radius: 12px;
+    padding: 16px;
+    border: none;
+    background-color: #fef2f2;
+    /* Rojo suave */
+    color: #ef4444;
+    /* Rojo vibrante */
+    font-weight: 800;
+    font-size: 0.95rem;
+    border-radius: 15px;
     cursor: pointer;
-    transition: all 0.2s;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
 .logout-btn:hover {
@@ -191,6 +223,7 @@ body {
         max-width: 600px;
         margin: 0 auto;
     }
+
     .header-title {
         font-size: 1.8rem;
     }

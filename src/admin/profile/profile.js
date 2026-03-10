@@ -2,14 +2,14 @@
 
 import { initBottomNav } from '../modules/bottom-nav/bottom-nav.js';
 // CORRECCIÓN: Solo importamos getSession, YA NO initAuthForm
-import { getSession } from '../auth/auth.js'; 
+import { getSession } from '../auth/auth.js';
 import { ProfileAdminService } from './profile.service.js';
 
 // Rutas de navegación
 const PROFILE_VIEW_ROUTES = {
-    'products': '../products/list-products/list-products.html', 
+    'products': '../products/list-products/list-products.html',
     'packs': '../packs/list-packs/list-packs.html', // NUEVA RUTA
-    'profile': './profile.html'                                 
+    'profile': './profile.html'
 };
 
 const ADMIN_CONTENT_ID = 'app-content';
@@ -27,8 +27,8 @@ export async function initProfilePage() {
         // --- CORRECCIÓN CRÍTICA ---
         // Si no hay sesión, REDIRIGIMOS (navegamos) a la página de login.
         // No inyectamos nada.
-        window.location.href = '../auth/auth.html'; 
-        return; 
+        window.location.href = '../auth/auth.html';
+        return;
     }
 
     // Si hay sesión, cargar datos
@@ -50,7 +50,7 @@ export async function initProfilePage() {
 
         // 3. Inicializar navegación inferior
         initBottomNav(CURRENT_VIEW, '../modules/bottom-nav/bottom-nav.html', PROFILE_VIEW_ROUTES);
-        
+
         if (navContainer) navContainer.style.display = 'block';
 
     } catch (error) {

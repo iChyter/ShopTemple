@@ -1,11 +1,11 @@
 // src/public/modules/layout/header/header.js
 
 import { CartService } from '../../../../services/store/cart.service.js';
-import { openCartModal } from '../../store/cart-modal/cart-modal.js'; 
+// import { openCartModal } from '../../store/cart-modal/cart-modal.js';
 import { getMenuCategories, getActiveProducts } from '../../../../services/store/products.service.js';
 
 const CART_COUNT_ID = 'cart-count-value';
-const HEADER_HTML_PATH = 'src/public/modules/layout/header/header.html'; 
+const HEADER_HTML_PATH = 'src/public/modules/layout/header/header.html';
 
 // Cachés para el buscador
 let searchProductsCache = [];
@@ -29,7 +29,10 @@ export async function initHeader(containerId) {
         await loadSearchData();
         renderSidebarMenu(searchCategoriesCache);
 
-        headerElement.querySelector('.cart-icon-container').addEventListener('click', openCartModal);
+        // Enviar a la página dedicada de carrito en lugar de abrir modal
+        headerElement.querySelector('.cart-icon-container').addEventListener('click', () => {
+            window.location.href = 'carrito.html';
+        });
         updateCartCount();
         setupSidebarLogic();
         setupLiveSearch();
@@ -55,22 +58,22 @@ async function loadSearchData() {
 function renderSidebarMenu(categories) {
     const navList = document.getElementById('header-nav-list');
     if (!navList) return;
-    
+
     navList.innerHTML = `<li><a href="#" class="nav-link" data-category="all">Ver Todo</a></li>`;
 
     categories.forEach(cat => {
         const li = document.createElement('li');
         const a = document.createElement('a');
-        a.href = "#"; 
-        a.textContent = cat.nombre.toLowerCase(); 
+        a.href = "#";
+        a.textContent = cat.nombre.toLowerCase();
         a.dataset.categoryId = cat.id;
-        
+
         a.addEventListener('click', (e) => {
             e.preventDefault();
             toggleSidebar(false);
             window.dispatchEvent(new CustomEvent('category-selected', { detail: { categoryId: cat.id } }));
         });
-        
+
         li.appendChild(a);
         navList.appendChild(li);
     });
@@ -108,7 +111,7 @@ function toggleSidebar(open) {
 function setupLiveSearch() {
     const searchInput = document.getElementById('global-search-input');
     const dropdown = document.getElementById('search-results-dropdown');
-    
+
     if (!searchInput || !dropdown) return;
 
     const closeDropdown = () => {
@@ -119,17 +122,17 @@ function setupLiveSearch() {
 
     const performSearch = (type, value) => {
         closeDropdown();
-        searchInput.value = ''; 
+        searchInput.value = '';
         searchInput.blur();
 
         if (type === 'category') {
-            window.dispatchEvent(new CustomEvent('category-selected', { 
-                detail: { categoryId: value } 
+            window.dispatchEvent(new CustomEvent('category-selected', {
+                detail: { categoryId: value }
             }));
         } else {
-            searchInput.value = value; 
-            window.dispatchEvent(new CustomEvent('search-query', { 
-                detail: { term: value } 
+            searchInput.value = value;
+            window.dispatchEvent(new CustomEvent('search-query', {
+                detail: { term: value }
             }));
         }
     };
@@ -137,7 +140,7 @@ function setupLiveSearch() {
     searchInput.addEventListener('input', (e) => {
         const rawTerm = e.target.value.trim();
         const term = normalizeText(rawTerm); // Normalizamos lo que escribe el usuario
-        
+
         if (rawTerm.length < 1) {
             closeDropdown();
             window.dispatchEvent(new CustomEvent('search-query', { detail: { term: '' } }));
@@ -145,15 +148,15 @@ function setupLiveSearch() {
         }
 
         // 1. Filtrar Categorías (Ignorando acentos)
-        const matchedCategories = searchCategoriesCache.filter(c => 
+        const matchedCategories = searchCategoriesCache.filter(c =>
             normalizeText(c.nombre).includes(term)
         );
 
         // 2. Filtrar Productos (Ignorando acentos)
-        const matchedProducts = searchProductsCache.filter(p => 
-            normalizeText(p.name).includes(term) || 
+        const matchedProducts = searchProductsCache.filter(p =>
+            normalizeText(p.name).includes(term) ||
             (p.category && normalizeText(p.category).includes(term))
-        ); 
+        );
 
         if (matchedCategories.length > 0 || matchedProducts.length > 0) {
             renderDropdownResults(matchedCategories, matchedProducts, dropdown, performSearch);
@@ -175,9 +178,9 @@ function setupLiveSearch() {
             closeDropdown();
         }
     });
-    
+
     searchInput.addEventListener('focus', () => {
-        if(searchInput.value.trim().length > 0) searchInput.dispatchEvent(new Event('input'));
+        if (searchInput.value.trim().length > 0) searchInput.dispatchEvent(new Event('input'));
     });
 }
 
@@ -217,8 +220,8 @@ function renderDropdownResults(categories, products, container, onSelect) {
         products.forEach(prod => {
             const li = document.createElement('li');
             li.className = 'search-item';
-            
-            const imgHtml = prod.image_url 
+
+            const imgHtml = prod.image_url
                 ? `<img src="${prod.image_url}" class="search-item-img" alt="${prod.name}">`
                 : `<div class="search-item-img" style="display:flex;align-items:center;justify-content:center;color:#ccc">🍺</div>`;
 
@@ -237,11 +240,11 @@ function renderDropdownResults(categories, products, container, onSelect) {
 
 export function updateCartCount() {
     const cart = CartService.getCart();
-    const totalItems = cart.reduce((total, item) => total + item.qty, 0); 
+    const totalItems = cart.reduce((total, item) => total + item.qty, 0);
     const countElement = document.getElementById(CART_COUNT_ID);
-    
+
     if (countElement) {
         countElement.textContent = totalItems > 0 ? totalItems : 0;
-        countElement.style.display = totalItems > 0 ? 'flex' : 'none'; 
+        countElement.style.display = totalItems > 0 ? 'flex' : 'none';
     }
 }

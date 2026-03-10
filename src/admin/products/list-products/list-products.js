@@ -1,7 +1,7 @@
 // src/admin/products/list-products/list-products.js
 
 import { initBottomNav } from '../../modules/bottom-nav/bottom-nav.js';
-import { getSession } from '../../auth/auth.js'; 
+import { getSession } from '../../auth/auth.js';
 import { getFilteredProductsPaged } from './list-products.service.js';
 
 // --- Clave para guardar el estado en SessionStorage ---
@@ -12,7 +12,7 @@ const savedState = JSON.parse(sessionStorage.getItem(STATE_KEY));
 
 const ITEMS_PER_PAGE = 10;
 let currentPage = savedState ? savedState.currentPage : 1;
-let currentFilter = savedState ? savedState.currentFilter : 'active'; 
+let currentFilter = savedState ? savedState.currentFilter : 'active';
 let currentSearchTerm = savedState ? savedState.currentSearchTerm : '';
 let totalProducts = 0;
 
@@ -26,12 +26,12 @@ const ADMIN_CONTENT_ID = 'app-content';
 const PRODUCTS_LIST_CONTAINER_ID = '#products-list-views';
 const ACTIVE_PRODUCTS_GRID_ID = 'active-products-list';
 const ALL_PRODUCTS_GRID_ID = 'all-products-list';
-const PAGINATION_CONTAINER_ID = 'pagination-container'; 
+const PAGINATION_CONTAINER_ID = 'pagination-container';
 
 export async function initListProductsPage() {
     if (window.listProductsInitialized) return;
     window.listProductsInitialized = true;
-    
+
     const session = await getSession();
     const contentContainer = document.getElementById(ADMIN_CONTENT_ID);
 
@@ -43,12 +43,12 @@ export async function initListProductsPage() {
     try {
         restoreUIState();
         attachEventListeners();
-        initBottomNav('products', '../../modules/bottom-nav/bottom-nav.html', PRODUCTS_VIEW_ROUTES); 
+        initBottomNav('products', '../../modules/bottom-nav/bottom-nav.html', PRODUCTS_VIEW_ROUTES);
         await loadProducts();
-        
+
     } catch (error) {
         console.error("Error al inicializar la lista de productos:", error);
-        if(contentContainer) contentContainer.innerHTML = `<p class="error-msg">Error al cargar la interfaz.</p>`;
+        if (contentContainer) contentContainer.innerHTML = `<p class="error-msg">Error al cargar la interfaz.</p>`;
     }
 }
 
@@ -81,8 +81,8 @@ function attachEventListeners() {
             clearTimeout(searchTimeout);
             searchTimeout = setTimeout(() => {
                 currentSearchTerm = searchInput.value.trim();
-                currentPage = 1; 
-                saveState(); 
+                currentPage = 1;
+                saveState();
                 loadProducts();
             }, 300);
         });
@@ -91,31 +91,31 @@ function attachEventListeners() {
     const tabsContainer = document.getElementById('product-view-tabs');
     if (tabsContainer) {
         tabsContainer.addEventListener('click', (e) => {
-            const button = e.target.closest('.tab-btn'); 
+            const button = e.target.closest('.tab-btn');
             if (!button) return;
 
-            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active')); 
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
             button.classList.add('active');
-            
+
             currentFilter = button.dataset.filter;
-            currentPage = 1; 
-            
-            saveState(); 
+            currentPage = 1;
+
+            saveState();
             updateActiveView(currentFilter);
             loadProducts();
         });
     }
-    
+
     const paginationContainer = document.getElementById(PAGINATION_CONTAINER_ID);
     if (paginationContainer) {
         paginationContainer.addEventListener('click', (e) => {
             const button = e.target.closest('.pagination-btn');
             if (!button || button.disabled) return;
-            
+
             const targetPage = parseInt(button.dataset.page);
             if (targetPage && targetPage !== currentPage) {
-                currentPage = targetPage; 
-                saveState(); 
+                currentPage = targetPage;
+                saveState();
                 loadProducts();
             }
         });
@@ -124,7 +124,7 @@ function attachEventListeners() {
     const productListViews = document.getElementById('products-list-views');
     if (productListViews) {
         productListViews.addEventListener('click', (e) => {
-            const listItem = e.target.closest('.product-card'); 
+            const listItem = e.target.closest('.product-card');
             if (listItem) {
                 const productId = listItem.dataset.id;
                 window.location.href = `../edit-product/edit-product.html?id=${productId}`;
@@ -136,7 +136,7 @@ function attachEventListeners() {
 function updateActiveView(filter) {
     const activeGrid = document.getElementById(ACTIVE_PRODUCTS_GRID_ID);
     const allGrid = document.getElementById(ALL_PRODUCTS_GRID_ID);
-    
+
     if (activeGrid) activeGrid.classList.remove('active-view');
     if (allGrid) allGrid.classList.remove('active-view');
 
@@ -145,7 +145,7 @@ function updateActiveView(filter) {
     } else if (activeGrid) {
         activeGrid.classList.add('active-view');
     }
-    
+
     const activeMsg = document.getElementById(`active-empty-msg`);
     if (activeMsg) activeMsg.style.display = 'none';
     const allMsg = document.getElementById(`all-empty-msg`);
@@ -155,15 +155,15 @@ function updateActiveView(filter) {
 async function loadProducts() {
     const activeListId = currentFilter === 'all' ? ALL_PRODUCTS_GRID_ID : ACTIVE_PRODUCTS_GRID_ID;
     const listContainer = document.getElementById(activeListId);
-    const emptyMsgElement = document.getElementById(`${currentFilter}-empty-msg`); 
-    
+    const emptyMsgElement = document.getElementById(`${currentFilter}-empty-msg`);
+
     if (!listContainer) return;
 
     const mainContainer = document.getElementById('app-content');
     if (mainContainer) mainContainer.classList.add('is-searching');
-    
-    listContainer.innerHTML = `<div class="u-flex-center" style="padding:40px"><div class="spin" style="width:24px;height:24px;border:2px solid #FFC107;border-top-color:transparent;border-radius:50%"></div></div>`;
-    if (emptyMsgElement) emptyMsgElement.style.display = 'none'; 
+
+    listContainer.innerHTML = `<div class="u-flex-center" style="padding:40px"><div class="spin" style="width:24px;height:24px;border:2px solid #16a34a;border-top-color:transparent;border-radius:50%"></div></div>`;
+    if (emptyMsgElement) emptyMsgElement.style.display = 'none';
 
     try {
         const { products, totalCount } = await getFilteredProductsPaged({
@@ -172,11 +172,11 @@ async function loadProducts() {
             itemsPerPage: ITEMS_PER_PAGE,
             pageNumber: currentPage
         });
-        
+
         totalProducts = totalCount;
 
         if (products.length === 0) {
-            listContainer.innerHTML = ''; 
+            listContainer.innerHTML = '';
             if (emptyMsgElement) emptyMsgElement.style.display = 'block';
         } else {
             listContainer.innerHTML = '';
@@ -185,7 +185,7 @@ async function loadProducts() {
             });
             if (emptyMsgElement) emptyMsgElement.style.display = 'none';
         }
-        
+
         renderPagination();
 
     } catch (error) {
@@ -203,7 +203,7 @@ function renderProductCard(product) {
     card.href = `../edit-product/edit-product.html?id=${product.id}`;
 
     const priceFormatted = `S/ ${product.price.toFixed(2)}`;
-    
+
     let stockClass = 'stock-none';
     let stockText = 'Agotado';
     if (product.is_active) {
@@ -211,7 +211,7 @@ function renderProductCard(product) {
         stockText = 'Activo';
     }
 
-    const imgHtml = product.image_url 
+    const imgHtml = product.image_url
         ? `<img src="${product.image_url}" alt="${product.name}" class="product-thumb">`
         : `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path></svg>`;
 
@@ -269,7 +269,7 @@ function renderPagination() {
     if (!paginationArea) return;
 
     const totalPages = Math.ceil(totalProducts / ITEMS_PER_PAGE);
-    
+
     if (totalPages <= 1) {
         paginationArea.innerHTML = '';
         return;
@@ -283,11 +283,10 @@ function renderPagination() {
         return `<button class="pagination-btn ${activeClass}" data-page="${page}" ${disabledAttr}>${content}</button>`;
     };
 
-    paginationHTML += createBtn(1, '&laquo;', false, currentPage === 1); 
     paginationHTML += createBtn(currentPage - 1, '&#8249;', false, currentPage === 1);
 
     const pagesToShow = [];
-    
+
     if (totalPages <= 7) {
         for (let i = 1; i <= totalPages; i++) pagesToShow.push(i);
     } else {
@@ -309,14 +308,13 @@ function renderPagination() {
     });
 
     paginationHTML += createBtn(currentPage + 1, '&#8250;', false, currentPage === totalPages);
-    paginationHTML += createBtn(totalPages, '&raquo;', false, currentPage === totalPages);
-    
-    paginationHTML += `</div>`; 
+
+    paginationHTML += `</div>`;
 
     const startItem = (currentPage - 1) * ITEMS_PER_PAGE + 1;
     const endItem = Math.min(currentPage * ITEMS_PER_PAGE, totalProducts);
     paginationHTML += `<p class="pagination-info">Mostrando ${startItem}-${endItem} de ${totalProducts} productos</p>`;
-    
+
     paginationArea.innerHTML = paginationHTML;
 }
 

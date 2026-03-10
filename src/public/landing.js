@@ -1,30 +1,15 @@
 // src/public/landing.js
 
-import { initWhatsappButton } from './modules/whatsapp-button/whatsapp-button.js';
+
+import { initAgeGate } from './modules/age-gate/age-gate.js';
+import { initBottomNav } from './modules/layout/bottom-nav/bottom-nav.js';
 
 document.addEventListener('DOMContentLoaded', () => {
-    initWhatsappButton('whatsapp-button-container');
+    initBottomNav();
 
-    /* --- MODAL EDAD --- */
-    const modal = document.getElementById('welcome-modal');
-    const btnYes = document.getElementById('btn-age-yes');
-    const btnNo = document.getElementById('btn-age-no');
 
-    setTimeout(() => {
-        if (modal) modal.classList.add('visible');
-    }, 500);
-
-    if (btnYes) {
-        btnYes.addEventListener('click', () => {
-            modal.classList.remove('visible');
-        });
-    }
-
-    if (btnNo) {
-        btnNo.addEventListener('click', () => {
-            window.location.href = "https://www.google.com";
-        });
-    }
+    /* --- VERIFICACIÓN DE EDAD --- */
+    initAgeGate();
 
     /* --- CARRUSEL DE BANNERS --- */
     initBannerCarousel();
@@ -33,11 +18,11 @@ document.addEventListener('DOMContentLoaded', () => {
 function initBannerCarousel() {
     // Busca los contenedores <picture>
     const banners = document.querySelectorAll('.banner-slide');
-    
+
     if (banners.length <= 1) return;
 
     let currentIndex = 0;
-    const intervalTime = 3000; 
+    const intervalTime = 3000;
 
     // Asegurar inicialización
     if (!document.querySelector('.banner-slide.active')) {

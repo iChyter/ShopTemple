@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>La Taberna - Pedidos al Toque</title>
+    <title>Categorías - La Taberna</title>
     <link rel="icon" type="image/webp" href="assets/icons/icon.webp">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -12,37 +12,31 @@
     <link href="https://fonts.googleapis.com/css2?family=Geom:ital,wght@0,300..900;1,300..900&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="src/public/main.css">
-
-    <link rel="stylesheet" href="src/public/modules/layout/header/header.css">
-    <link rel="stylesheet" href="src/public/modules/layout/header/header.responsive.css">
-
-    <link rel="stylesheet" href="src/public/modules/store/categories-bar/categories-bar.css">
-
-
-    <link rel="stylesheet" href="src/public/modules/store/product-grid/product-grid.css">
-    <link rel="stylesheet" href="src/public/modules/store/product-grid/product-grid.responsive.css">
-
-    <link rel="stylesheet" href="src/public/modules/store/cart-modal/cart-modal.css">
-    <link rel="stylesheet" href="src/public/modules/store/cart-modal/cart-modal.responsive.css">
-
-    <link rel="stylesheet" href="src/public/modules/store/toast-notification/toast.css">
-
+    <link rel="stylesheet" href="src/public/modules/store/categories-page/categories-page.css">
     <link rel="stylesheet" href="src/public/modules/layout/bottom-nav/bottom-nav.css">
 </head>
 
 <body>
-    <header id="main-header">
+    <!-- HEADER -->
+    <header class="cat-page-header">
+        <a href="index.html" class="back-btn" aria-label="Volver">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+        </a>
+        <h1>Categorías</h1>
     </header>
 
-    <section id="categories-bar-container"></section>
-
-    <main id="app-content" class="store-layout-grid">
-
-
-
-        <section id="product-grid-container"></section>
-
-        <!-- El carrito ahora es una standalone page (carrito.html) -->
+    <!-- CONTENT -->
+    <main id="app-content" class="cat-page-main">
+        <div id="full-categories-grid" class="full-categories-grid">
+            <!-- Renderizado dinámico desde JS -->
+            <div style="text-align: center; width: 100%; grid-column: 1 / -1; padding: 40px;">
+                <div class="spinner" style="margin: 0 auto;"></div>
+            </div>
+        </div>
     </main>
 
     <footer id="main-footer">
@@ -65,11 +59,10 @@
         </div>
     </footer>
 
-
+    <!-- El Bottom Nav se inyecta dinámicamente desde categories-page.js llamando a initBottomNav() -->
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
-
-    <script type="module" src="src/public/main.js"></script>
+    <script type="module" src="src/public/modules/store/categories-page/categories-page.js"></script>
 </body>
 
 </html>

@@ -1,50 +1,120 @@
 /* src/public/modules/store/product-grid/product-grid.responsive.css */
 
-/* MÓVIL (< 600px): 2 Columnas */
+/* MÓVIL (< 600px): List View Horizontal / 1 Columna */
 @media (max-width: 599px) {
     .category-products-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 10px; 
-    }
-    
-    .category-title {
-        font-size: 1.4rem;
-        margin-bottom: 20px;
+        grid-template-columns: 1fr;
+        gap: 12px;
     }
 
-    .product-card img { height: 150px; }
-    .product-info { padding: 10px; }
-    .product-name { font-size: 0.9em; }
+    .category-title {
+        font-size: 1.2rem;
+        margin-bottom: 16px;
+    }
+
+    /* Tarjeta Horizontal CSS Grid */
+    .product-card {
+        display: grid;
+        grid-template-columns: 110px 1fr;
+        grid-template-rows: auto 1fr;
+        grid-template-areas:
+            "image info"
+            "badge info";
+        gap: 0 14px;
+        padding: 12px;
+        padding-bottom: 12px;
+        /* override del padding desktop */
+        border-radius: 12px;
+    }
+
+    .card-image-wrapper {
+        grid-area: image;
+        border-radius: 8px;
+        /* Redondear todos los bordes */
+        width: 100%;
+        height: auto;
+        aspect-ratio: 1;
+        padding: 0;
+    }
+
+    .product-card img {
+        padding: 8px;
+    }
+
+    .product-info {
+        grid-area: info;
+        padding: 0;
+        padding-bottom: 30px;
+        /* Espacio para que el carrito no tape el texto */
+        gap: 4px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+    }
+
+    .product-name {
+        font-size: 0.92rem;
+        line-height: 1.35;
+        -webkit-line-clamp: 3;
+        line-clamp: 3;
+    }
+
+    /* Precios lado a lado */
+    .price-container {
+        flex-direction: row;
+        align-items: center;
+        gap: 8px;
+        margin-top: 4px;
+    }
+
+    .original-price-crossed {
+        font-size: 0.82rem;
+    }
+
+    .product-price {
+        font-size: 1.05rem;
+    }
+
+    /* Badge abajo de la imagen */
+    .pack-badge {
+        grid-area: badge;
+        position: static;
+        align-self: start;
+        justify-self: center;
+        margin-top: 8px;
+        margin-bottom: 0px;
+        font-size: 0.68rem;
+        padding: 4px 10px;
+        letter-spacing: 0.8px;
+    }
+
+    /* Carrito flotante en la tarjeta */
+    .card-cart-btn {
+        bottom: 12px;
+        right: 12px;
+        width: 38px;
+        height: 38px;
+        border-radius: 10px;
+    }
+
+    .card-cart-btn svg {
+        width: 20px;
+        height: 20px;
+    }
 }
 
-/* TABLET PEQUEÑA (600px - 767px): 3 Columnas (Aún modo móvil sin sidebar) */
-@media (min-width: 600px) and (max-width: 767px) {
+/* TABLET PEQUEÑA (600px - 767px): 3 Columnas */
+@media (min-width: 600px) and (max-width: 1023px) {
     .category-products-grid {
         grid-template-columns: repeat(3, 1fr);
-        gap: 20px;
+        gap: 10px;
     }
 }
 
-/* TABLET CON SIDEBAR (768px - 1023px) */
-@media (min-width: 768px) and (max-width: 1023px) {
-    .category-products-grid {
-        /* Al tener el sidebar al lado, bajamos a 2 columnas para que no se aprieten */
-        grid-template-columns: repeat(2, 1fr);
-        gap: 20px;
-    }
-}
-
-/* PC ESTÁNDAR (1024px+): 3 Columnas */
+/* PC (1024px+): 4 Columnas */
 @media (min-width: 1024px) {
     .category-products-grid {
-        grid-template-columns: repeat(3, 1fr);
-        gap: 25px;
-    }
-}
-
-/* PC GRANDE (1280px+): 4 Columnas */
-@media (min-width: 1280px) {
-    .category-products-grid {
         grid-template-columns: repeat(4, 1fr);
+        gap: 14px;
     }
 }

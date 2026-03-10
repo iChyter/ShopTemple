@@ -72,12 +72,12 @@ body {
 }
 
 .search-input:focus {
-    border-color: #FFC107;
-    box-shadow: 0 0 0 3px rgba(255, 193, 7, 0.15);
+    border-color: #16a34a;
+    box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.15);
 }
 
 .add-btn {
-    background-color: #FFC107; 
+    background-color: #16a34a;
     color: #212529;
     border: none;
     border-radius: 8px;
@@ -91,7 +91,7 @@ body {
 }
 
 .add-btn:hover {
-    background-color: #e0a800;
+    background-color: #15803d;
 }
 
 .add-btn svg {
@@ -126,8 +126,8 @@ body {
 }
 
 .category-card.selected {
-    background-color: #fffbf0;
-    border-color: #FFC107;
+    background-color: #f0fdf4;
+    border-color: #16a34a;
 }
 
 .category-name {
@@ -140,17 +140,18 @@ body {
 
 /* ESTILO DEL ICONO DE CARPETA/EXTRA (Unificado) */
 .folder-icon {
-    color: #FFC107;
+    color: #16a34a;
     width: 20px;
     height: 20px;
-    margin-right: 8px; /* Espacio uniforme */
+    margin-right: 8px;
+    /* Espacio uniforme */
     vertical-align: middle;
 }
 
 .custom-checkbox {
     width: 24px;
     height: 24px;
-    border: 2px solid #e0e0e0; 
+    border: 2px solid #e0e0e0;
     border-radius: 6px;
     display: flex;
     align-items: center;
@@ -161,8 +162,8 @@ body {
 }
 
 .category-card.selected .custom-checkbox {
-    background-color: #dc3545;
-    border-color: #dc3545;
+    background-color: #16a34a;
+    border-color: #16a34a;
 }
 
 .custom-checkbox svg {
@@ -226,7 +227,7 @@ body {
 
 /* --- MODALES --- */
 .modal-container {
-    display: none; 
+    display: none;
     position: fixed;
     top: 0;
     left: 0;
@@ -254,7 +255,7 @@ body {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: #ffffff; 
+    background-color: #ffffff;
     padding: 25px;
     border-radius: 16px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
@@ -266,10 +267,11 @@ body {
 /* Estilo del título del modal y su icono */
 .modal-content h4 {
     margin-top: 0;
-    color: #dc3545; /* Rojo por defecto (Delete) */
+    color: #dc3545;
+    /* Rojo por defecto (Delete) */
     margin-bottom: 10px;
     font-size: 1.2rem;
-    
+
     /* Flex para alinear icono y texto perfectamente al centro */
     display: flex;
     align-items: center;
@@ -284,7 +286,8 @@ body {
 
 /* Sobrescribimos el color rojo solo para el modal de Crear Categoría/Extra */
 #create-modal-container h4 {
-    color: #343a40; /* Negro normal */
+    color: #343a40;
+    /* Negro normal */
 }
 
 /* Lista dentro del modal */
@@ -306,8 +309,10 @@ body {
     font-size: 0.95em;
     color: #343a40;
     display: flex;
-    align-items: center; /* Alinear icono en la lista */
+    align-items: center;
+    /* Alinear icono en la lista */
 }
+
 .modal-list li:last-child {
     border-bottom: none;
 }
@@ -331,6 +336,7 @@ body {
     background-color: #dc3545;
     color: white;
 }
+
 .btn-cancel {
     background-color: #e9ecef;
     color: #343a40;
@@ -340,10 +346,12 @@ body {
 
 /* Color del icono en el modal de creación de Extra */
 #create-modal-container h4 svg {
-    color: #FFC107; /* Dorado Primario */
+    color: #16a34a;
+    /* Dorado Primario */
 }
 
 /* Color del icono en la lista de Extras (reutiliza .folder-icon) */
 .category-card .folder-icon {
-    color: #FFC107; /* Dorado Primario */
+    color: #16a34a;
+    /* Dorado Primario */
 }

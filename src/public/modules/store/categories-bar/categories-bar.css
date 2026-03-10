@@ -1,133 +1,202 @@
 /* src/public/modules/store/categories-bar/categories-bar.css */
 
 #categories-bar-container {
-    /* Full Bleed: Ocupa todo el ancho de la ventana */
-    width: 100vw; 
-    margin-left: calc(50% - 50vw);
-    margin-right: calc(50% - 50vw);
-    
-    margin-top: -20px;        
-    margin-bottom: 10px;
+    /* Mismo ancho que #app-content */
+    max-width: 1400px;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 2px 15px 4px;
+    /* un poco menos de padding inferior */
+
     background-color: #ffffff;
-    
-    padding: 2px 0 10px 0;   
-    
-    /* Sticky */
+
+    /* Sticky: se queda flotando debajo del header */
     position: -webkit-sticky;
     position: sticky;
-    top: 60px; 
-    z-index: 990; 
-    
+    top: 70px;
+    z-index: 990;
+
     border-bottom: 1px solid #f0f0f0;
-    box-shadow: none; 
+    box-shadow: none;
     transition: box-shadow 0.3s ease;
+    /* Necesario para posicionar las flechas absolutas */
+    position: sticky;
 }
 
 #categories-bar-container.is-pinned {
-    box-shadow: 0 4px 10px rgba(0,0,0,0.08); 
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
 }
 
 .categories-bar-wrapper {
     display: flex;
     overflow-x: auto;
-    gap: 20px; 
-    padding: 5px 20px; 
-    
-    scrollbar-width: none; 
+    gap: 20px;
+    padding: 5px 0;
+
+    scrollbar-width: none;
     -ms-overflow-style: none;
     scroll-behavior: smooth;
     align-items: flex-start;
-    justify-content: flex-start; /* Móvil: alineado izquierda */
+    justify-content: flex-start;
 }
 
-/* En PC centramos los iconos */
-@media (min-width: 1024px) {
-    .categories-bar-wrapper {
-        justify-content: center;
+@media (min-width: 768px) {
+    #categories-bar-container {
+        padding: 2px 40px 4px;
     }
 }
 
-.categories-bar-wrapper::-webkit-scrollbar { 
-    display: none; 
+@media (min-width: 1024px) {
+    #categories-bar-container {
+        padding: 2px 80px 4px;
+    }
+
+    .categories-bar-wrapper {
+        padding: 5px 44px;
+    }
 }
 
-.categories-scroll-fade {
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 60px; 
-    height: 100%;
-    background: linear-gradient(to right, rgba(255,255,255,0), #ffffff 100%);
-    pointer-events: none;
-    z-index: 10;
-    opacity: 1;
-    transition: opacity 0.3s ease;
+.categories-bar-wrapper::-webkit-scrollbar {
+    display: none;
 }
 
-.categories-scroll-fade.is-hidden {
-    opacity: 0;
+/* --- CSS MASKS (DEGRADADOS DE OPACIDAD) --- */
+.categories-bar-wrapper.mask-start {
+    -webkit-mask-image: linear-gradient(to right, black calc(100% - 80px), transparent 100%);
+    mask-image: linear-gradient(to right, black calc(100% - 80px), transparent 100%);
 }
+
+.categories-bar-wrapper.mask-end {
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 80px);
+    mask-image: linear-gradient(to right, transparent 0%, black 80px);
+}
+
+.categories-bar-wrapper.mask-both {
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 80px, black calc(100% - 80px), transparent 100%);
+    mask-image: linear-gradient(to right, transparent 0%, black 80px, black calc(100% - 80px), transparent 100%);
+}
+
+.categories-bar-wrapper.mask-none {
+    -webkit-mask-image: none;
+    mask-image: none;
+}
+
+/* --- FLECHAS DE NAVEGACIÓN (Solo PC ≥ 1024px) --- */
+.categories-arrow {
+    display: none;
+    /* Ocultas por defecto en móvil */
+}
+
+@media (min-width: 1024px) {
+    .categories-arrow {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 20;
+
+        width: 40px;
+        height: 40px;
+        border: none;
+        background-color: transparent;
+        box-shadow: none;
+        cursor: pointer;
+        color: #343a40;
+        font-size: 1.5rem;
+
+        /* Aparecen/desaparecen con transición */
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.25s ease, color 0.2s ease, transform 0.2s ease;
+    }
+
+    .categories-arrow.visible {
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+    .categories-arrow:hover {
+        color: #16a34a;
+        background-color: transparent;
+        border-color: transparent;
+        transform: translateY(-50%) scale(1.15);
+    }
+
+    .categories-arrow:active {
+        transform: translateY(-50%) scale(0.95);
+    }
+
+    .categories-arrow--left {
+        left: 85px;
+    }
+
+    .categories-arrow--right {
+        right: 85px;
+    }
+}
+
+/* --- ITEMS --- */
 
 .cat-nav-item {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: flex-start;
     cursor: pointer;
     flex-shrink: 0;
-    width: 75px; 
-    transition: transform 0.2s ease, opacity 0.2s;
-    opacity: 0.9;
+    width: 96px;
+    height: 108px;
+    background-color: #ffffff;
+    border: 1px solid #eaeaea;
+    border-radius: 12px;
+    padding: 10px 6px;
+    transition: transform 0.2s ease, border-color 0.2s, box-shadow 0.2s;
     user-select: none;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.02);
     -webkit-tap-highlight-color: transparent;
 }
 
-.cat-nav-item.active, .cat-nav-item:hover {
-    opacity: 1;
-    transform: scale(1.05); 
+.cat-nav-item.active,
+.cat-nav-item:hover {
+    transform: translateY(-2px);
+    border-color: #16a34a;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
 }
 
 .cat-nav-icon {
-    width: 60px;  
-    height: 60px; 
-    background-color: #f8f9fa;
-    border-radius: 20px; 
+    width: 48px;
+    height: 48px;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 8px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.05); 
-    border: 2px solid transparent;
-    transition: all 0.2s;
-    overflow: hidden;
+    margin-bottom: 6px;
     position: relative;
 }
 
-.cat-nav-item.active .cat-nav-icon {
-    background-color: #fff8e1; 
-    border-color: #FFC107;     
-    box-shadow: 0 4px 12px rgba(255, 193, 7, 0.3); 
-}
-
 .cat-nav-icon img {
-    width: 75%; 
-    height: 75%;
+    width: 100%;
+    height: 100%;
     object-fit: contain;
 }
 
 .cat-nav-label {
-    font-size: 0.75rem; 
+    font-size: 0.72rem;
     font-weight: 700;
     text-align: center;
-    color: #343a40;
-    line-height: 1.2;
+    color: #333;
+    line-height: 1.25;
     text-transform: capitalize;
     max-width: 100%;
     display: -webkit-box;
     -webkit-line-clamp: 2;
+    line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
 
 .cat-nav-item.active .cat-nav-label {
-    color: #d79b00; 
+    color: #d79b00;
 }

@@ -1,19 +1,20 @@
 // src/public/modules/store/product-grid/product-grid.js
 
-import { getProductsMetadata, getProductsPaged } from '../../../../services/store/products.service.js'; 
-import { renderProductCard } from './product-grid.utils.js'; 
+import { getProductsMetadata, getProductsPaged } from '../../../../services/store/products.service.js';
+import { renderProductCard } from './product-grid.utils.js';
 import { updateSidebarFilters } from '../desktop-sidebar/desktop-sidebar.js';
 
 // Configuración de Paginación
 const ITEMS_PER_PAGE = 12;
 
 // Estado Global de la Grid
+let observer = null;
 let gridState = {
     page: 1,
-    products: [],     
-    total: 0,         
+    products: [],
+    total: 0,
     isLoading: false,
-    
+
     // Filtros activos
     filters: {
         categoryIds: [],
@@ -21,7 +22,7 @@ let gridState = {
         minPrice: 0,
         maxPrice: Infinity,
         brands: [],
-        onlyOffers: false, 
+        onlyOffers: true, // Por defecto (Home vacío) muestra solo las ofertas
         onlyPacks: false
     }
 };
@@ -36,18 +37,33 @@ export async function initProductGrid(containerId) {
         <div id="grid-loader" class="loader-container" style="display:none;">
             <div class="spinner"></div>
         </div>
-        <div class="load-more-container">
-            <button id="btn-load-more" class="load-more-btn" style="display:none;">Cargar más productos</button>
-        </div>
+        <div id="scroll-marker" style="height: 1px; width: 100%;"></div>
     `;
 
     const contentArea = document.getElementById('grid-content-area');
-    const loadMoreBtn = document.getElementById('btn-load-more');
+    const scrollMarker = document.getElementById('scroll-marker');
+
+    // --- SETUP INFINITE SCROLL ---
+    if (observer) observer.disconnect();
+    observer = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting && !gridState.isLoading) {
+            const loadedCount = gridState.page * ITEMS_PER_PAGE;
+            if (loadedCount < gridState.total) {
+                gridState.page++;
+                fetchAndRender(false);
+            }
+        }
+    }, {
+        root: null,
+        rootMargin: '400px', // Empieza a cargar 400px antes de llegar al final
+        threshold: 0
+    });
+    observer.observe(scrollMarker);
 
     // 1. Cargar Metadata para el Sidebar
     try {
         const metadata = await getProductsMetadata();
-        updateSidebarFilters(metadata); 
+        updateSidebarFilters(metadata);
     } catch (e) {
         console.error("Error metadata:", e);
     }
@@ -57,18 +73,13 @@ export async function initProductGrid(containerId) {
 
     // --- EVENTOS ---
 
-    loadMoreBtn.addEventListener('click', () => {
-        gridState.page++;
-        fetchAndRender(false); 
-    });
-
     window.addEventListener('filter-changed', (e) => {
         gridState.filters.minPrice = e.detail.minPrice;
         gridState.filters.maxPrice = e.detail.maxPrice;
         gridState.filters.brands = e.detail.brands;
         gridState.filters.onlyOffers = e.detail.onlyOffers;
         gridState.filters.onlyPacks = e.detail.onlyPacks;
-        
+
         resetAndReload();
     });
 
@@ -79,19 +90,23 @@ export async function initProductGrid(containerId) {
         if (packsSelected) {
             gridState.filters.onlyPacks = true;
             gridState.filters.categoryIds = selectedIds.filter(id => id !== 'packs');
+            gridState.filters.onlyOffers = false;
         } else {
             gridState.filters.onlyPacks = false;
             gridState.filters.categoryIds = selectedIds;
+            // Si desmarcó todas las categorías, es el home (ofertas)
+            gridState.filters.onlyOffers = (selectedIds.length === 0);
         }
 
-        gridState.filters.searchTerm = ''; 
+        gridState.filters.searchTerm = '';
         resetAndReload();
     });
 
     window.addEventListener('search-query', (e) => {
         gridState.filters.searchTerm = e.detail.term;
-        gridState.filters.categoryIds = []; 
-        gridState.filters.onlyPacks = false; 
+        gridState.filters.categoryIds = [];
+        gridState.filters.onlyPacks = false;
+        gridState.filters.onlyOffers = false; // Al buscar, buscamos en todos
         resetAndReload();
     });
 
@@ -100,6 +115,7 @@ export async function initProductGrid(containerId) {
         gridState.filters.categoryIds = (catId === 'all') ? [] : [catId];
         gridState.filters.searchTerm = '';
         gridState.filters.onlyPacks = false;
+        gridState.filters.onlyOffers = (gridState.filters.categoryIds.length === 0);
         resetAndReload();
     });
 }
@@ -107,7 +123,7 @@ export async function initProductGrid(containerId) {
 function resetAndReload() {
     gridState.page = 1;
     gridState.products = [];
-    fetchAndRender(true); 
+    fetchAndRender(true);
 }
 
 async function fetchAndRender(isReset) {
@@ -116,12 +132,10 @@ async function fetchAndRender(isReset) {
 
     const contentArea = document.getElementById('grid-content-area');
     const loader = document.getElementById('grid-loader');
-    const loadMoreBtn = document.getElementById('btn-load-more');
 
     loader.style.display = 'flex';
-    loadMoreBtn.style.display = 'none';
     if (isReset) {
-        contentArea.innerHTML = ''; 
+        contentArea.innerHTML = '';
     }
 
     try {
@@ -133,14 +147,12 @@ async function fetchAndRender(isReset) {
             minPrice: gridState.filters.minPrice,
             maxPrice: gridState.filters.maxPrice,
             brands: gridState.filters.brands,
-            onlyPacks: gridState.filters.onlyPacks
+            onlyPacks: gridState.filters.onlyPacks,
+            onlyOffers: gridState.filters.onlyOffers
         });
 
-        // Filtrado Client-Side para "Solo Ofertas" usando datos REALES
+        // Ya no precisamos filtrado Client-Side; el server devuelve solo ofertas si onlyOffers = true
         let productsToShow = products;
-        if (gridState.filters.onlyOffers) {
-            productsToShow = products.filter(p => p.has_discount);
-        }
 
         gridState.products = isReset ? productsToShow : [...gridState.products, ...productsToShow];
         gridState.total = total;
@@ -151,14 +163,15 @@ async function fetchAndRender(isReset) {
             renderBatch(contentArea, productsToShow);
         }
 
-        const loadedCount = (gridState.page * ITEMS_PER_PAGE); 
-        if (loadedCount < total) {
-            loadMoreBtn.style.display = 'block';
-            loadMoreBtn.textContent = `Ver más (${total - loadedCount} restantes)`;
-        } else {
-            loadMoreBtn.style.display = 'none';
-        }
+        // El Infinite Scroll se encarga de la siguiente petición observando el scroll-marker
 
+        // Si ya cargamos todo y hay al menos algo rendered, poner el btn final
+        if (gridState.products.length >= gridState.total && gridState.products.length > 0) {
+            if (!document.getElementById('view-all-cats-btn-global')) {
+                const btnHtml = `<div class="view-all-cats-container"><a href="categorias.html" id="view-all-cats-btn-global" class="view-all-cats-btn">Ver todas las categorías</a></div>`;
+                contentArea.insertAdjacentHTML('beforeend', btnHtml);
+            }
+        }
     } catch (error) {
         console.error("Error grid:", error);
         contentArea.innerHTML = '<p class="error-msg">Error de conexión.</p>';
@@ -170,7 +183,7 @@ async function fetchAndRender(isReset) {
 
 function renderBatch(container, products) {
     let grid = container.querySelector('.category-products-grid');
-    
+
     if (!grid) {
         const titleText = getTitleText();
         if (titleText) {

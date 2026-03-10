@@ -89,7 +89,7 @@
 .quantity-controls button:hover { background-color: #e9ecef; }
 
 .remove-item-btn {
-    background: none; border: none; color: #dc3545;
+    background: none; border: none; color: var(--primary-color);
     font-size: 1.2em; padding: 0; margin-left: 12px;
     cursor: pointer; transition: transform 0.1s;
 }
@@ -144,7 +144,7 @@
 .payment-label input { display: none; }
 
 .payment-label:has(input:checked) {
-    border-color: #FFC107;
+    border-color: #16a34a;
     background-color: #fffbef;
     color: #000;
     font-weight: 700;
@@ -163,7 +163,7 @@
 
 /* Animación de error */
 .shake-animation {
-    border-color: #dc3545 !important;
+    border-color: var(--primary-color) !important;
     animation: shake 0.4s cubic-bezier(.36,.07,.19,.97) both;
 }
 @keyframes shake {
@@ -194,10 +194,10 @@
 
 /* Botón Continuar (Paso 1) - Amarillo/Dorado */
 .btn-continue {
-    background-color: #FFC107;
+    background-color: #16a34a;
     color: #000;
 }
-.btn-continue:hover { background-color: #e0a800; }
+.btn-continue:hover { background-color: #15803d; }
 
 /* Botón WhatsApp (Paso 2) - Verde Oficial */
 .btn-whatsapp {

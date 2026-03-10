@@ -4,7 +4,7 @@ body {
     background-color: #ffffff;
     color: #343a40;
     font-family: var(--font-family, sans-serif);
-    padding-bottom: 90px;
+    padding-bottom: 100px;
 }
 
 .mobile-main-content {
@@ -35,7 +35,7 @@ body {
     display: flex;
     background-color: #f8f9fa;
     border: 1px solid #e9ecef;
-    border-radius: 8px; 
+    border-radius: 8px;
     padding: 4px;
 }
 
@@ -54,20 +54,20 @@ body {
 }
 
 .tab-btn.active {
-    background-color: #fffbe8;
-    color: #FFC107;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    background-color: #f0fdf4;
+    color: #16a34a;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .search-and-action-container {
     display: flex;
     gap: 10px;
     align-items: center;
-    margin-bottom: 4px; 
+    margin-bottom: 4px;
 }
 
-.search-container { 
-    margin-bottom: 0; 
+.search-container {
+    margin-bottom: 0;
     flex-grow: 1;
 }
 
@@ -98,7 +98,7 @@ body {
 }
 
 .add-product-btn {
-    background-color: #FFC107;
+    background-color: #16a34a;
     color: #343a40;
     width: 48px;
     height: 48px;
@@ -106,19 +106,19 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-shrink: 0; 
+    flex-shrink: 0;
     transition: background-color 0.2s;
 }
 
 .add-product-btn:hover {
-    background-color: #e0a800;
+    background-color: #15803d;
 }
 
 .add-product-btn svg {
     width: 24px;
     height: 24px;
-    stroke: currentColor; 
-    stroke-width: 3; 
+    stroke: currentColor;
+    stroke-width: 3;
 }
 
 .products-list {
@@ -143,7 +143,7 @@ body {
 
 .product-card:active {
     background-color: #f8f9fa;
-    border-color: #FFC107;
+    border-color: #16a34a;
 }
 
 .product-card-left {
@@ -151,20 +151,20 @@ body {
     align-items: center;
     gap: 12px;
     flex: 1;
-    min-width: 0; 
+    min-width: 0;
 }
 
 .product-icon-box {
     width: 42px;
     height: 42px;
-    background: rgba(255, 193, 7, 0.1);
+    background: #f0fdf4;
     border-radius: 8px;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #FFC107;
+    color: #16a34a;
     flex-shrink: 0;
-    overflow: hidden; 
+    overflow: hidden;
 }
 
 .product-thumb {
@@ -212,7 +212,7 @@ body {
 }
 
 .discount-icon-outline {
-    color: #f1aeb5; 
+    color: #f1aeb5;
     stroke-width: 2.5;
 }
 
@@ -240,71 +240,101 @@ body {
     white-space: nowrap;
 }
 
-.stock-high { color: #155724; background: #d4edda; }
-.stock-medium { color: #856404; background: #fff3cd; }
-.stock-low { color: #721c24; background: #f8d7da; }
-.stock-none { color: #6c757d; background: #e9ecef; }
+.stock-high {
+    color: #155724;
+    background: #d4edda;
+}
 
-.spin { animation: spin 1s linear infinite; }
-@keyframes spin { 100% { transform: rotate(360deg); } }
-.u-flex-center { display: flex; justify-content: center; align-items: center; width: 100%; }
+.stock-medium {
+    color: #856404;
+    background: #fff3cd;
+}
+
+.stock-low {
+    color: #721c24;
+    background: #f8d7da;
+}
+
+.stock-none {
+    color: #6c757d;
+    background: #e9ecef;
+}
+
+.spin {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.u-flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
 
 .products-grid {
     display: none;
     flex-direction: column;
     gap: 12px;
 }
+
 .products-grid.active-view {
     display: flex;
 }
 
 .pagination-area {
     margin-top: 25px;
-    margin-bottom: 20px;
+    margin-bottom: 5px;
 }
 
 .pagination-wrapper {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 6px;
+    gap: 8px;
 }
 
 .pagination-btn {
-    width: 36px;
-    height: 36px;
+    width: 38px;
+    height: 38px;
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 1px solid #dee2e6;
-    background-color: #ffffff;
-    color: #343a40;
-    border-radius: 6px;
+    border: none;
+    background-color: #f1f3f9;
+    color: #495057;
+    border-radius: 8px;
+    /* Bordes finamente redondeados */
     cursor: pointer;
-    font-size: 0.95rem;
-    font-weight: 600;
+    font-size: 0.9rem;
+    font-weight: 700;
     font-family: inherit;
-    transition: all 0.2s ease;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     padding: 0;
 }
 
 .pagination-btn:hover:not(:disabled) {
-    background-color: #e9ecef;
-    border-color: #ced4da;
+    background-color: #e2e6ea;
+    transform: translateY(-1px);
 }
 
 .pagination-btn.active {
-    background-color: #495057;
+    background-color: #16a34a;
     color: #ffffff;
-    border-color: #495057;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    box-shadow: 0 4px 12px rgba(22, 163, 74, 0.35);
+    transform: scale(1.05);
 }
 
 .pagination-btn:disabled {
-    color: #ced4da;
-    cursor: default;
+    color: #adb5bd;
+    cursor: not-allowed;
     background-color: #f8f9fa;
-    border-color: #e9ecef;
+    opacity: 0.6;
 }
 
 .pagination-dots {

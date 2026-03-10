@@ -1,0 +1,202 @@
+/* src/public/modules/store/categories-page/categories-page.css */
+
+/* HEADER */
+.cat-page-header {
+    display: flex;
+    align-items: center;
+    padding: 16px 20px;
+    background-color: #ffffff;
+    border-bottom: 1px solid #f0f0f0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.back-btn {
+    width: 44px;
+    height: 44px;
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #1a1a1a;
+    text-decoration: none;
+    transition: background-color 0.2s;
+    /* Truco para centrar el título ignorando el ancho del botón */
+    margin-right: -44px;
+}
+
+.back-btn:active {
+    background-color: #e9ecef;
+}
+
+.back-btn svg {
+    width: 22px;
+    height: 22px;
+}
+
+.cat-page-header h1 {
+    flex-grow: 1;
+    text-align: center;
+    font-size: 1.25rem;
+    margin: 0;
+    font-weight: 800;
+    color: #1a1a1a;
+    pointer-events: none;
+}
+
+
+/* MAIN LAYOUT */
+.cat-page-main {
+    padding: 24px 15px 20px;
+    background-color: #ffffff;
+}
+
+.full-categories-grid {
+    display: grid;
+    /* Grid dinámico de tarjetas cuadradas. En móvil ~2 cols, PC ~5 cols */
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+@media (min-width: 600px) {
+    .full-categories-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (min-width: 900px) {
+    .full-categories-grid {
+        grid-template-columns: repeat(5, 1fr);
+    }
+}
+
+
+/* CATEGORY CARD */
+.cat-page-card {
+    background-color: #ffffff;
+    border-radius: 14px;
+    border: 1px solid #eaeaea;
+    padding: 20px 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.2s;
+    text-decoration: none;
+    overflow: hidden;
+    /* Importante para el botón chevron de la esquina */
+}
+
+.cat-page-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
+    border-color: #16a34a;
+}
+
+.cat-page-img {
+    width: 65%;
+    aspect-ratio: 1;
+    object-fit: contain;
+    margin-bottom: 12px;
+}
+
+.cat-page-title {
+    font-size: 1rem;
+    font-weight: 800;
+    color: #1a1a1a;
+    margin: 0 0 4px 0;
+    text-align: center;
+    text-transform: capitalize;
+}
+
+.cat-page-count {
+    font-size: 0.78rem;
+    color: #888;
+    margin: 0;
+    font-weight: 500;
+}
+
+/* El botón naranja con el ">" estilo flecha */
+.cat-page-arrow {
+    position: absolute;
+    bottom: -1px;
+    right: -1px;
+    background-color: #16a34a;
+    color: #ffffff;
+    width: 32px;
+    height: 32px;
+    border-radius: 10px 0 14px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s;
+}
+
+.cat-page-card:hover .cat-page-arrow {
+    background-color: #15803d;
+}
+
+.cat-page-arrow svg {
+    width: 16px;
+    height: 16px;
+    stroke: currentColor;
+}
+
+
+/* BOTTOM NAV BAR (MOBILE) */
+.mobile-bottom-nav {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #ffffff;
+    border-top: 1px solid #f0f0f0;
+    padding: 10px 0;
+    z-index: 999;
+}
+
+/* En Desktop, esconder por ahora (opcional) */
+@media (min-width: 768px) {
+    .mobile-bottom-nav {
+        display: none;
+    }
+
+    .cat-page-main {
+        padding-bottom: 40px;
+    }
+}
+
+.nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #999;
+    text-decoration: none;
+    font-size: 0.7rem;
+    font-weight: 700;
+    gap: 4px;
+    transition: color 0.2s;
+}
+
+.nav-item.active {
+    color: #1a1a1a;
+}
+
+.nav-item svg {
+    width: 24px;
+    height: 24px;
+    stroke: currentColor;
+}
+
+.nav-item.active svg {
+    stroke: #1a1a1a;
+}

@@ -1,6 +1,6 @@
 // src/services/store/products.service.js
 
-import { supabase } from '../../config/supabaseClient.js'; 
+import { supabase } from '../../config/supabaseClient.js';
 
 /**
  * Obtiene METADATA ligera de TODOS los productos.
@@ -9,27 +9,27 @@ export async function getProductsMetadata() {
     try {
         const { data, error } = await supabase
             .from('products')
-            .select('id, name, price, categoria_id, is_pack, has_discount, discount_percentage') 
+            .select('id, name, price, categoria_id, is_pack, has_discount, discount_percentage')
             .eq('is_active', true);
-        
+
         if (error) throw error;
-        
+
         // Procesamos marcas
         return data.map(p => {
             let cleanName = p.name.replace(/Pack\s+/i, "").replace(/Botella\s+/i, "").replace(/Combo\s+/i, "");
             const generics = ["RON", "PISCO", "GIN", "VODKA", "WHISKY", "CERVEZA", "VINO", "ESPUMANTE", "LATA", "SIXPACK"];
             const words = cleanName.trim().split(" ");
             let brand = "Genérico";
-            
+
             if (words.length > 0) {
                 if (generics.includes(words[0].toUpperCase()) && words.length > 1) {
                     brand = words[1];
                 } else {
-                    brand = words[0]; 
+                    brand = words[0];
                 }
             }
             brand = brand.replace(/,/g, "").trim();
-            
+
             return {
                 ...p,
                 brand: brand.charAt(0).toUpperCase() + brand.slice(1).toLowerCase()
@@ -38,22 +38,23 @@ export async function getProductsMetadata() {
 
     } catch (err) {
         console.error("Error fetching metadata:", err);
-        return []; 
+        return [];
     }
 }
 
 /**
  * Obtiene productos PAGINADOS y FILTRADOS desde el servidor.
  */
-export async function getProductsPaged({ 
-    page = 1, 
-    limit = 12, 
-    categoryIds = [], 
-    searchTerm = '', 
-    minPrice = 0, 
+export async function getProductsPaged({
+    page = 1,
+    limit = 12,
+    categoryIds = [],
+    searchTerm = '',
+    minPrice = 0,
     maxPrice = 99999,
     brands = [],
-    onlyPacks = false
+    onlyPacks = false,
+    onlyOffers = false
 }) {
     try {
         const from = (page - 1) * limit;
@@ -77,7 +78,12 @@ export async function getProductsPaged({
             query = query.eq('is_pack', true);
         }
 
-        // 3. Búsqueda Texto
+        // 3. Ofertas (Solo descuentos)
+        if (onlyOffers) {
+            query = query.eq('has_discount', true);
+        }
+
+        // 4. Búsqueda Texto
         if (searchTerm) {
             query = query.ilike('name', `%${searchTerm}%`);
         }
@@ -95,7 +101,7 @@ export async function getProductsPaged({
             .range(from, to);
 
         const { data, error, count } = await query;
-        
+
         if (error) throw error;
 
         return {
@@ -108,7 +114,7 @@ export async function getProductsPaged({
 
     } catch (err) {
         console.error("Error fetching paged products:", err);
-        return { products: [], total: 0 }; 
+        return { products: [], total: 0 };
     }
 }
 
@@ -117,12 +123,12 @@ export async function getActiveProducts() {
     try {
         const { data, error } = await supabase
             .from('products')
-            .select('id, name, price, image_url, categoria:categorias(nombre)') 
+            .select('id, name, price, image_url, categoria:categorias(nombre)')
             .eq('is_active', true);
-            // .limit(50);  <-- LÍMITE ELIMINADO: Ahora trae TODOS los activos
-        
+        // .limit(50);  <-- LÍMITE ELIMINADO: Ahora trae TODOS los activos
+
         if (error) throw error;
-        
+
         return data.map(product => ({
             ...product,
             category: product.categoria ? product.categoria.nombre : 'Sin Categoría'
@@ -140,10 +146,10 @@ export async function getMenuCategories() {
     try {
         const { data, error } = await supabase
             .from('categorias')
-            .select('id, nombre, image_url') 
+            .select('id, nombre, image_url')
             .neq('nombre', 'SIN CATEGORIA')
             .order('nombre', { ascending: true });
-        
+
         if (error) throw error;
 
         // --- INYECCIÓN DE CATEGORÍA VIRTUAL "COMBOS" ---
