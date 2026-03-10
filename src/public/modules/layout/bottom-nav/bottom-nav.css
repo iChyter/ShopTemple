@@ -90,9 +90,9 @@
     /* Ancho de la línea resaltadora */
 }
 
-/* Ocultar en pantallas grandes, esto es diseño mobile */
-@media (min-width: 768px) {
+/* Ocultar en pantallas grandes, comentado para que se vea en PC */
+/* @media (min-width: 768px) {
     #store-bottom-nav {
         display: none !important;
     }
-}
+} */

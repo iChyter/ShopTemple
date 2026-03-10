@@ -3,32 +3,35 @@
 /* --- TABLET Y ESCRITORIO (>= 768px) --- */
 @media (min-width: 768px) {
     .header-top-row {
-        padding: 10px 40px; 
-        gap: 40px; 
-    }
-    
-    /* 1. MOSTRAR MARCA / LOGO (Flex para alinear imagen y texto) */
-    .header-brand {
-        display: flex; /* CAMBIO AQUÍ: usar flex en lugar de block */
-        width: auto; /* Ancho automático según contenido */
-        min-width: 200px; /* Ancho mínimo para equilibrio */
+        padding: 10px 40px;
+        gap: 40px;
     }
 
-    /* 2. OCULTAR MENÚ HAMBURGUESA */
-    .menu-toggle-btn {
-        display: none !important;
+    /* 1. MOSTRAR MARCA / LOGO (Flex para alinear imagen y texto) */
+    .header-brand {
+        display: flex;
+        /* CAMBIO AQUÍ: usar flex en lugar de block */
+        width: auto;
+        /* Ancho automático según contenido */
+        min-width: 200px;
+        /* Ancho mínimo para equilibrio */
     }
+
+    /* 2. MOSTRAR MENÚ HAMBURGUESA EN PC (A petición del usuario) */
+    /* .menu-toggle-btn {
+        display: none !important;
+    } */
 
     /* 3. CENTRAR BUSCADOR */
     .header-search-container {
-        margin: 0 auto; 
+        margin: 0 auto;
         max-width: 600px;
         width: 100%;
     }
 
     .search-input-wrapper input {
         font-size: 1rem;
-        padding: 12px 12px 12px 45px; 
+        padding: 12px 12px 12px 45px;
     }
 
     /* 4. EQUILIBRIO DERECHA (CARRITO) */

@@ -3,7 +3,7 @@
 const WHATSAPP_BUTTON_ID = 'whatsapp-button-container';
 const WHATSAPP_BUTTON_HTML_PATH = 'src/public/modules/whatsapp-button/whatsapp-button.html';
 const PHONE_NUMBER = '51961367961'; // Número ya usado en cart.service.js
-const DEFAULT_MESSAGE = 'Hola, estoy navegando en La Taberna y necesito ayuda con un pedido.';
+const DEFAULT_MESSAGE = 'Hola, estoy navegando en Demo Catalogo y necesito ayuda con un pedido.';
 
 /**
  * Inicializa el botón flotante de WhatsApp.
@@ -20,7 +20,7 @@ export async function initWhatsappButton(containerId) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
         const buttonHtml = await response.text();
-        
+
         // 2. Inyectar el HTML cargado
         container.innerHTML = buttonHtml;
 
@@ -30,7 +30,7 @@ export async function initWhatsappButton(containerId) {
             const encodedMessage = encodeURIComponent(DEFAULT_MESSAGE);
             // Crea la URL completa con el número y el mensaje codificado
             const whatsappUrl = `https://api.whatsapp.com/send?phone=${PHONE_NUMBER}&text=${encodedMessage}`;
-            
+
             whatsappLink.href = whatsappUrl;
         }
 

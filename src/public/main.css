@@ -69,7 +69,8 @@ button {
 /* --- FOOTER --- */
 #main-footer {
     text-align: center;
-    padding: 12px 20px;
+    padding: 12px 20px 110px 20px;
+    /* Padding bottom 110px added to prevent bottom nav from covering */
     background-color: #ffffff;
     color: #999999;
     font-size: 0.72em;
@@ -87,13 +88,6 @@ button {
 .f-divider {
     color: #ddd;
     font-weight: 300;
-}
-
-@media (max-width: 767px) {
-    #main-footer {
-        padding-bottom: 110px;
-        /* Desplaza el texto del footer hacia arriba para que no lo tape el menú */
-    }
 }
 
 /* FOOTER EXTRAS (Dentro de inner ahora) */

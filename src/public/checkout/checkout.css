@@ -1,0 +1,332 @@
+/* src/public/checkout/checkout.css */
+
+body {
+    background-color: #f8f9fa;
+    padding-bottom: 120px;
+}
+
+.checkout-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 20px;
+    background-color: #fff;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.icon-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    background-color: #f8f9fa;
+    border-radius: 12px;
+    color: #333;
+    text-decoration: none;
+    transition: background-color 0.2s;
+}
+
+.icon-btn svg {
+    width: 20px;
+    height: 20px;
+}
+
+.header-title {
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: #1a1a1a;
+    margin: 0;
+}
+
+.checkout-container {
+    padding: 24px 20px;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.checkout-section {
+    margin-bottom: 32px;
+}
+
+.section-title {
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: #1a1a1a;
+    margin-bottom: 16px;
+}
+
+.options-group {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.option-card {
+    display: flex;
+    align-items: center;
+    padding: 16px;
+    background-color: #f8f9fa;
+    border-radius: 12px;
+    border: 1px solid #e9ecef;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.option-card input[type="radio"] {
+    display: none;
+}
+
+.opt-icon {
+    width: 48px;
+    height: 48px;
+    background-color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 16px;
+    flex-shrink: 0;
+    color: #333;
+}
+
+.opt-icon svg {
+    width: 24px;
+    height: 24px;
+}
+
+.opt-icon.small-icon {
+    width: 38px;
+    height: 38px;
+    background-color: transparent;
+    color: var(--primary-color, #16a34a);
+}
+
+.opt-icon.small-icon svg {
+    width: 22px;
+    height: 22px;
+}
+
+.opt-content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.opt-content strong {
+    font-size: 1.05rem;
+    font-weight: 800;
+    color: #333;
+    margin-bottom: 4px;
+}
+
+.opt-content span {
+    font-size: 0.85rem;
+    color: #888;
+}
+
+.opt-radio {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 2px solid #ddd;
+    margin-left: 16px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+}
+
+/* Active States */
+
+/* Shipping Card Active State (Filled styling) */
+.option-card.shipping-opt.active {
+    background-color: var(--primary-color, #16a34a);
+    border-color: var(--primary-color, #16a34a);
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(22, 163, 74, 0.2);
+}
+
+.option-card.shipping-opt.active .opt-content strong,
+.option-card.shipping-opt.active .opt-content span {
+    color: #fff;
+}
+
+.option-card.shipping-opt.active .opt-icon {
+    color: var(--primary-color, #16a34a);
+}
+
+.option-card.shipping-opt.active .opt-radio {
+    border-color: #fff;
+    background-color: #fff;
+}
+
+.option-card.shipping-opt.active .opt-radio::after {
+    content: '';
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #333;
+}
+
+/* Payment Card Active State (Outline styling) */
+.option-card.payment-opt {
+    background-color: #fff;
+}
+
+.option-card.payment-opt.active {
+    border-color: var(--primary-color, #16a34a);
+    background-color: #fff;
+    box-shadow: 0 4px 12px rgba(22, 163, 74, 0.1);
+}
+
+.option-card.payment-opt.active .opt-radio {
+    border-color: var(--primary-color, #16a34a);
+    background-color: #fff;
+}
+
+.option-card.payment-opt.active .opt-radio::after {
+    content: '';
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #333;
+}
+
+/* Floating Checkout (Reuse from Carrito mostly) */
+.floating-checkout-box {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: transparent;
+    z-index: 1000;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.floating-checkout-inner {
+    background-color: #fff;
+    border-top: 1px solid #f0f0f0;
+    border-radius: 20px 20px 0 0;
+    padding: 20px 25px 35px 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.05);
+}
+
+.floating-total-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.floating-total-label {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: #888;
+    margin-bottom: 2px;
+}
+
+.floating-total-price {
+    font-size: 1.6rem;
+    font-weight: 900;
+    color: #000;
+}
+
+.btn-checkout-main {
+    background-color: var(--primary-color, #16a34a);
+    opacity: 1;
+    color: #ffffff;
+    padding: 14px 32px;
+    border-radius: 10px;
+    border: none;
+    font-weight: 800;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: inherit;
+    box-shadow: 0 4px 12px rgba(22, 163, 74, 0.3);
+}
+
+.btn-checkout-main:hover {
+    background-color: #15803d;
+    transform: translateY(-1px);
+}
+
+/* --- MODAL DE ERROR --- */
+.custom-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    animation: fadeInBg 0.2s ease-out forwards;
+}
+
+@keyframes fadeInBg {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+#location-error-modal {
+    background: #fff;
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+    animation: popIn 0.3s ease-out forwards;
+}
+
+@keyframes popIn {
+    from {
+        transform: scale(0.9);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -40%);
+    }
+
+    to {
+        opacity: 1;
+        transform: translate(-50%, -50%);
+    }
+}
+
+.reminder-icon {
+    font-size: 3.5rem;
+    margin-bottom: 20px;
+    display: block;
+}
+
+.reminder-text {
+    font-size: 1.05rem;
+    font-weight: 500;
+    color: #343a40;
+    margin-bottom: 25px;
+    line-height: 1.5;
+}

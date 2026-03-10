@@ -165,6 +165,20 @@ async function fetchAndRender(isReset) {
 
         // El Infinite Scroll se encarga de la siguiente petición observando el scroll-marker
 
+        // Revisar si el scroll-marker sigue visible en pantallas grandes (PC)
+        // para asegurar de que cargue la siguiente página si la primera no llenó la pantalla
+        if (gridState.products.length < gridState.total) {
+            const scrollMarker = document.getElementById('scroll-marker');
+            if (scrollMarker) {
+                const rect = scrollMarker.getBoundingClientRect();
+                if (rect.top <= window.innerHeight + 400) {
+                    gridState.page++;
+                    // Usar setTimeout para evitar recursión síncrona profunda
+                    setTimeout(() => fetchAndRender(false), 50);
+                }
+            }
+        }
+
         // Si ya cargamos todo y hay al menos algo rendered, poner el btn final
         if (gridState.products.length >= gridState.total && gridState.products.length > 0) {
             if (!document.getElementById('view-all-cats-btn-global')) {

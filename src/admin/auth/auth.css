@@ -166,7 +166,7 @@ body {
     width: 100%;
     padding: 16px;
     background-color: #16a34a;
-    /* Naranja/Dorado oscuro */
+    /* Verde */
     color: #ffffff;
     /* Texto blanco */
     font-size: 1.1rem;
@@ -176,23 +176,23 @@ body {
     cursor: pointer;
     transition: transform 0.1s, box-shadow 0.2s, background-color 0.2s;
     margin-top: 10px;
-    box-shadow: 0 4px 14px rgba(216, 131, 27, 0.25);
-    /* Sombra naranja */
+    box-shadow: 0 4px 14px rgba(22, 163, 74, 0.25);
+    /* Sombra verde */
 }
 
 #login-btn:hover {
-    background-color: #e0912d;
+    background-color: #15803d;
     transform: translateY(-2px);
-    box-shadow: 0 6px 18px rgba(216, 131, 27, 0.3);
+    box-shadow: 0 6px 18px rgba(22, 163, 74, 0.3);
 }
 
 #login-btn:active {
     transform: translateY(0);
-    box-shadow: 0 2px 8px rgba(216, 131, 27, 0.2);
+    box-shadow: 0 2px 8px rgba(22, 163, 74, 0.2);
 }
 
 #login-btn:disabled {
-    background-color: #e8bd89;
+    background-color: #86efac;
     cursor: not-allowed;
     box-shadow: none;
 }
