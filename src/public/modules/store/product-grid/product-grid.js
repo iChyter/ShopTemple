@@ -115,7 +115,15 @@ export async function initProductGrid(containerId) {
         gridState.filters.categoryIds = (catId === 'all') ? [] : [catId];
         gridState.filters.searchTerm = '';
         gridState.filters.onlyPacks = false;
-        gridState.filters.onlyOffers = (gridState.filters.categoryIds.length === 0);
+        
+        // Verificar si hay un override (viene de página de categorías)
+        if (window.gridStateFiltersOverride && window.gridStateFiltersOverride.onlyOffers !== undefined) {
+            gridState.filters.onlyOffers = window.gridStateFiltersOverride.onlyOffers;
+            delete window.gridStateFiltersOverride;
+        } else {
+            gridState.filters.onlyOffers = (gridState.filters.categoryIds.length === 0);
+        }
+        
         resetAndReload();
     });
 }

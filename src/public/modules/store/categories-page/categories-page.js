@@ -64,9 +64,11 @@ document.addEventListener('DOMContentLoaded', async () => {
                 </div>
             `;
 
-            // EVENTO: al hacer clic guardamos la categoría en localStorage para que 'store.html' lo lea
             card.addEventListener('click', (e) => {
+                // Guardamos la categoría en localStorage para que 'store.html' lo lea
                 localStorage.setItem('selectedCategoryFromPage', cat.id);
+                // También guardamos el nombre para mostrar en el título
+                localStorage.setItem('selectedCategoryNameFromPage', cat.nombre);
             });
 
             gridContainer.appendChild(card);

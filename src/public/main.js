@@ -9,7 +9,7 @@ import { initCategoriesBar } from './modules/store/categories-bar/categories-bar
 import { initAgeGate } from './modules/age-gate/age-gate.js';
 import { initBottomNav } from './modules/layout/bottom-nav/bottom-nav.js';
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
     initBottomNav();
 
     // 0. Verificación de Edad (Age Gate)
@@ -27,6 +27,40 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     // 6. Inicializa la Rejilla de Productos
-    initProductGrid('product-grid-container');
+    await initProductGrid('product-grid-container');
+
+    // 7. Verificar si viene de la página de categorías
+    const selectedCatFromPage = localStorage.getItem('selectedCategoryFromPage');
+    if (selectedCatFromPage) {
+        const selectedCatName = localStorage.getItem('selectedCategoryNameFromPage');
+        localStorage.removeItem('selectedCategoryFromPage');
+        localStorage.removeItem('selectedCategoryNameFromPage');
+        
+        // Deseleccionar filtro de ofertas y packs en el sidebar
+        const offersCheck = document.getElementById('offers-check');
+        const packsCheck = document.getElementById('packs-check');
+        const minPriceInput = document.getElementById('min-price-input');
+        const maxPriceInput = document.getElementById('max-price-input');
+        const brandChecks = document.querySelectorAll('.brand-check');
+        
+        if (offersCheck) offersCheck.checked = false;
+        if (packsCheck) packsCheck.checked = false;
+        if (minPriceInput) minPriceInput.value = 0;
+        if (maxPriceInput) maxPriceInput.value = 1000;
+        brandChecks.forEach(cb => cb.checked = false);
+        
+        // Forzar que soloOffers sea false antes de cargar la categoría
+        window.gridStateFiltersOverride = { onlyOffers: false };
+        
+        // Forzar un reload limpio de la página para evitar estados viejos
+        setTimeout(() => {
+            window.dispatchEvent(new CustomEvent('category-selected', {
+                detail: { 
+                    categoryId: selectedCatFromPage,
+                    categoryName: selectedCatName || null
+                }
+            }));
+        }, 300);
+    }
 
 });
