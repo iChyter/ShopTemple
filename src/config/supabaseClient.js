@@ -1,8 +1,8 @@
 // src/config/supabaseClient.js
 
 // Coloca aquí tus credenciales
-const SUPABASE_URL = 'https://twawtvmxndjkkmnpquvp.supabase.co';
-const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InR3YXd0dm14bmRqa2ttbnBxdXZwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzEyNDk1MzksImV4cCI6MjA4NjgyNTUzOX0.nF_3MCGAu2vE7rQOnQFsVHQ9PkBZpeIjbLkMy2xhXx0';
+const SUPABASE_URL = 'https://dgrjixcoljemcvokqcfr.supabase.co';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRncmppeGNvbGplbWN2b2txY2ZyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMzMzQxNDgsImV4cCI6MjA4ODkxMDE0OH0.ubAg4AfN6abyekl24ikP32ckAcfelJ2tqqy2bIqVlAE';
 
 // --- CONFIGURACIÓN DE STORAGE ---
 export const PRODUCTS_BUCKET = 'product-images';
