@@ -106,7 +106,7 @@ const CartService = {
 
         const cart = CartService.getCart();
         const total = CartService.getCartTotal();
-        const phoneNumber = "51961367961";
+        const phoneNumber = "51901437847";
 
         if (cart.length === 0) {
             alert("Tu carrito está vacío. ¡Agrega unos tragos primero!");
