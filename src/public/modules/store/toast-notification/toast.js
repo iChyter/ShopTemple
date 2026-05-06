@@ -1,70 +1,60 @@
 // src/public/modules/store/toast-notification/toast.js
 
 const TOAST_ID = 'toast-notification-container';
+const TOAST_TITLE_ID = 'toast-title';
 const TOAST_MESSAGE_ID = 'toast-message';
-const AUTOHIDE_DELAY = 1000; // 1 segundo (1000ms)
+const AUTOHIDE_DELAY = 2500;
 
-let timeoutId = null; // Para manejar el temporizador de auto-ocultado
+let timeoutId = null;
 
-/**
- * Inicializa el elemento HTML del toast y añade el listener de cierre.
- */
 export function initToastNotification() {
     const body = document.body;
-    
-    // Crear la estructura HTML del toast con mejor formato
+
     const toastHTML = `
         <div id="${TOAST_ID}">
-            <div class="toast-message-content">
-                <span style="font-size:1.1em; color: #fff;">✅</span>
-                <span id="${TOAST_MESSAGE_ID}"></span>
+            <div class="toast-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#4CAF50" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
             </div>
-            <button class="toast-close-btn" onclick="window.hideToast()">✖</button>
+            <div class="toast-content">
+                <span id="${TOAST_TITLE_ID}" class="toast-title"></span>
+                <span id="${TOAST_MESSAGE_ID}" class="toast-message"></span>
+            </div>
+            <button class="toast-close-btn" onclick="window.hideToast()">✕</button>
         </div>
     `;
-    
-    // Añadir el toast al final del body
-    body.insertAdjacentHTML('beforeend', toastHTML);
 
-    // Hacer la función de cierre global para que funcione con onclick
-    window.hideToast = hideToast; 
+    body.insertAdjacentHTML('beforeend', toastHTML);
+    window.hideToast = hideToast;
 }
 
-/**
- * Muestra el toast con un mensaje y configura el auto-ocultado.
- * @param {string} message - El mensaje a mostrar.
- */
-export function showToast(message) {
+export function showToast(message, title = 'Listo') {
     const toast = document.getElementById(TOAST_ID);
-    const messageElement = document.getElementById(TOAST_MESSAGE_ID);
+    const titleEl = document.getElementById(TOAST_TITLE_ID);
+    const messageEl = document.getElementById(TOAST_MESSAGE_ID);
 
-    if (!toast || !messageElement) return;
+    if (!toast || !titleEl || !messageEl) return;
 
-    // 1. Limpiar el temporizador anterior si existe
     if (timeoutId) {
         clearTimeout(timeoutId);
     }
-    
-    // 2. Establecer el mensaje y aplicar la clase 'show' para iniciar la animación de opacidad
-    messageElement.textContent = message;
+
+    titleEl.textContent = title;
+    messageEl.textContent = message;
+
     toast.classList.add('show');
-    
-    // 3. Configurar el auto-ocultado
+
     timeoutId = setTimeout(() => {
         hideToast();
     }, AUTOHIDE_DELAY);
 }
 
-/**
- * Oculta el toast.
- */
 export function hideToast() {
     const toast = document.getElementById(TOAST_ID);
     if (toast) {
-        // Al remover la clase 'show', la transición CSS se encarga del desvanecimiento
         toast.classList.remove('show');
     }
-    // Limpiar el temporizador para evitar que se dispare después de un cierre manual
     if (timeoutId) {
         clearTimeout(timeoutId);
         timeoutId = null;

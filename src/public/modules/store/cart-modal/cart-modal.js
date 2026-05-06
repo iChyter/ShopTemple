@@ -83,14 +83,9 @@ export function initCartModal() {
 function handleContinueToReminder() {
     const cart = CartService.getCart();
     if (cart.length === 0) {
-        showToast("⚠️ Tu carrito está vacío.");
-        return;
-    }
-
-    const selectedPayment = document.querySelector('input[name="payment_method"]:checked');
-    
-    if (!selectedPayment) {
-        showToast("⚠️ Por favor selecciona un método de pago.");
+showToast("Tu carrito está vacío.", "Atención");
+            } else {
+                showToast("Por favor selecciona un método de pago.", "Atención");
         const section = document.getElementById('payment-section');
         section.classList.add('shake-animation');
         setTimeout(() => section.classList.remove('shake-animation'), 500);

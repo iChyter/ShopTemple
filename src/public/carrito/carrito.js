@@ -120,10 +120,10 @@ function handleContinueCheck() {
 }
 
 // Ya no se usa directamente desde carrito
-function handleFinalWhatsappRedirect() {
+async function handleFinalWhatsappRedirect() {
 
     // Como quitaste el método de pago, mandamos un default o vacío al service
-    CartService.sendOrderToWhatsapp('Coordinar por intern');
+    await CartService.sendOrderToWhatsapp('Coordinar por intern');
 
     // Opcional: una vez se abre whatsapp, podríamos limpiar el carro o solo esconder modal
     returnToCart();

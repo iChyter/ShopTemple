@@ -47,7 +47,7 @@ function setupCardOptions(radioName) {
     });
 }
 
-function handleConfirmOrder() {
+async function handleConfirmOrder() {
     const shippingMethod = document.querySelector('input[name="shipping"]:checked').value;
     const paymentMethod = document.querySelector('input[name="payment"]:checked').value;
 
@@ -60,17 +60,17 @@ function handleConfirmOrder() {
     if (shippingMethod === 'auto') {
         if ("geolocation" in navigator) {
             navigator.geolocation.getCurrentPosition(
-                (position) => {
+                async (position) => {
                     const lat = position.coords.latitude;
                     const lng = position.coords.longitude;
                     const locationUrl = `https://www.google.com/maps?q=${lat},${lng}`;
-                    CartService.sendOrderToWhatsapp({ paymentMethod, locationUrl });
+                    await CartService.sendOrderToWhatsapp({ paymentMethod, locationUrl });
 
                     btnConfirm.textContent = originalText;
                     btnConfirm.disabled = false;
                     window.location.href = 'index.html'; // volver a inicio
                 },
-                (error) => {
+                async (error) => {
                     console.error("Error obteniendo ubicación:", error);
                     showLocationErrorModal(originalText, btnConfirm);
                 },
@@ -81,7 +81,7 @@ function handleConfirmOrder() {
         }
     } else {
         // Manual
-        CartService.sendOrderToWhatsapp({ paymentMethod });
+        await CartService.sendOrderToWhatsapp({ paymentMethod });
         btnConfirm.textContent = originalText;
         btnConfirm.disabled = false;
         window.location.href = 'index.html';

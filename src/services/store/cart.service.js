@@ -99,14 +99,28 @@ const CartService = {
         return cart.reduce((total, item) => total + (item.price * item.qty), 0);
     },
 
-    sendOrderToWhatsapp: (options = {}) => {
-        // Soporte para ambos: si es string (anticuado) o un objeto.
+    sendOrderToWhatsapp: async function(options = {}) {
         const opts = typeof options === 'string' ? { paymentMethod: options } : options;
         const { paymentMethod = "Efectivo", locationUrl = null } = opts;
 
         const cart = CartService.getCart();
         const total = CartService.getCartTotal();
-        const phoneNumber = "51901437847";
+
+        let phoneNumber = "51901437847";
+
+        try {
+            const { data, error } = await supabase
+                .from('store_settings')
+                .select('whatsapp_number')
+                .limit(1)
+                .single();
+
+            if (!error && data && data.whatsapp_number) {
+                phoneNumber = data.whatsapp_number;
+            }
+        } catch (e) {
+            console.warn("No se pudo obtener número de WhatsApp, usando default:", e);
+        }
 
         if (cart.length === 0) {
             alert("Tu carrito está vacío. ¡Agrega unos tragos primero!");

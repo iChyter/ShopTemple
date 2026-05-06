@@ -59,7 +59,7 @@ export function renderProductCard(product) {
     addButton.addEventListener('click', (e) => {
         e.stopPropagation();
         CartService.addToCart(product);
-        showToast(`✅ ${product.name} añadido al carrito.`);
+        showToast(`${product.name} añadido al carrito.`, 'Producto agregado');
     });
 
     return card;
