@@ -4,7 +4,36 @@ Execute this SQL in your new Supabase project to recreate the database schema.
 
 ## Buckets (Storage)
 
-Buckets must be created manually in the Supabase Dashboard:
+Buckets can be created via SQL or Dashboard.
+
+### Via SQL (use MCP or SQL Editor):
+
+```sql
+-- Product images bucket
+INSERT INTO storage.buckets (id, name, public)
+VALUES ('product-images', 'product-images', true)
+ON CONFLICT DO NOTHING;
+
+-- Category images bucket
+INSERT INTO storage.buckets (id, name, public)
+VALUES ('category-images', 'category-images', true)
+ON CONFLICT DO NOTHING;
+
+-- Storage policies
+CREATE POLICY "Product images make public" ON storage.objects
+    FOR SELECT USING (bucket_id = 'product-images');
+
+CREATE POLICY "Product images upload" ON storage.objects
+    FOR INSERT TO authenticated WITH CHECK (bucket_id = 'product-images');
+
+CREATE POLICY "Category images make public" ON storage.objects
+    FOR SELECT USING (bucket_id = 'category-images');
+
+CREATE POLICY "Category images upload" ON storage.objects
+    FOR INSERT TO authenticated WITH CHECK (bucket_id = 'category-images');
+```
+
+### Via Dashboard:
 - Go to **Storage** → **New bucket**
 - Name: `product-images` (public)
 - Name: `category-images` (public)
@@ -149,26 +178,6 @@ Update storage bucket names if different:
 ```javascript
 export const PRODUCTS_BUCKET = 'product-images';
 export const CATEGORIES_BUCKET = 'category-images';
-```
-
-## Storage Policy (Storage Buckets)
-
-After creating buckets in Dashboard, add this SQL for storage policies:
-
-```sql
--- Product images bucket policies
-CREATE POLICY "Product images make public" ON storage.objects
-    FOR SELECT USING (bucket_id = 'product-images');
-
-CREATE POLICY "Product images upload" ON storage.objects
-    FOR INSERT TO authenticated WITH CHECK (bucket_id = 'product-images');
-
--- Category images bucket policies
-CREATE POLICY "Category images make public" ON storage.objects
-    FOR SELECT USING (bucket_id = 'category-images');
-
-CREATE POLICY "Category images upload" ON storage.objects
-    FOR INSERT TO authenticated WITH CHECK (bucket_id = 'category-images');
 ```
 
 ## Categories Data (Example)
